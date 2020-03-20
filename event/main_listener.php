@@ -80,7 +80,7 @@ class main_listener implements EventSubscriberInterface
 
 
 	/**
-	* user_add_modify_notifications_data setup
+	* User add modify notifications data
 	*
 	* @param object $event The event object
 	*
@@ -110,7 +110,7 @@ class main_listener implements EventSubscriberInterface
 
 
 	/**
-	* ucp_notifications_submit_notification_is_set setup
+	* UCP on notifications submit check $is_set_notify
 	*
 	* @param object $event The event object
 	*
@@ -136,7 +136,7 @@ class main_listener implements EventSubscriberInterface
 
 
 	/**
-	* ucp_notifications_output_notification_types_modify_template_vars setup
+	* UCP notifications modify 'notification_types' template vars
 	*
 	* @param object $event The event object
 	*
@@ -162,7 +162,7 @@ class main_listener implements EventSubscriberInterface
 
 
 	/**
-	* notification_manager_add_notifications_for_users_modify_data setup
+	* Modify data in 'notification_manager' at 'add_notifications' for users
 	*
 	* @param object $event The event object
 	*

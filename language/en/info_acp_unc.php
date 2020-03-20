@@ -6,6 +6,12 @@
  * @copyright (c) 2020, Dark❶, https://dark1.tech
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
+ *
+ * Language : English [en]
+ * Translators :
+ * 1. Dark❶ [dark1]
+ *
+ *
  */
 
 if (!defined('IN_PHPBB'))
