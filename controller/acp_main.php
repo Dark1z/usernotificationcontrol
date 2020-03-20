@@ -65,7 +65,6 @@ class acp_main extends acp_base
 	 */
 	public function handle()
 	{
-		$this->user->add_lang('ucp');
 		$notify_matrix = [];
 
 		// Is the form being submitted to us?
@@ -110,6 +109,7 @@ class acp_main extends acp_base
 		$phpbb_notifications = $this->phpbb_container->get('notification_manager');
 		$notification_methods = $phpbb_notifications->get_subscription_methods();
 		$notification_types_groups = $phpbb_notifications->get_subscription_types();
+		$this->language->add_lang('ucp');
 
 		$notify_matrix = [];
 		foreach ($notification_types_groups as $group => $notification_types)

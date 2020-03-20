@@ -93,7 +93,7 @@ class unc_table
 	/**
 	 * Set Notification Methods & Types is Disabled {true}in Matrix.
 	 *
-	 * @param array in form ary['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
+	 * @param array $ary in form ary['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
 	 *
 	 * @return void
 	 * @access public
@@ -132,8 +132,8 @@ class unc_table
 	/**
 	 * Update User Notification Table using No Notify Matrix.
 	 *
-	 * @param array in form notify_matrix['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
-	 * @param bool Update or not
+	 * @param array $notify_matrix in form notify_matrix['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
+	 * @param bool $update to Update or not
 	 *
 	 * @return void
 	 * @access public
@@ -160,7 +160,7 @@ class unc_table
 					}
 				}
 
-				for ($i=0; $i < 2 ; $i++)
+				for ($i=0; $i < 2; $i++)
 				{
 					$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE . PHP_EOL .
 							'SET notify = ' . (int) $i . PHP_EOL .

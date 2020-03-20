@@ -27,7 +27,7 @@ class ext extends base
 	const PHPBB_MIN_3_2_X = '3.2.10';
 
 	/** string Require phpBB v3.3.1 due to events. */
-	const PHPBB_MIN_3_3_X = '3.3.0';
+	const PHPBB_MIN_3_3_X = '3.3.1';
 
 	/**
 	 * {@inheritdoc}
