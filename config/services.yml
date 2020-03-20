@@ -1,0 +1,27 @@
+services:
+
+    dark1.usernotificationcontrol.unc_table:
+        class: dark1\usernotificationcontrol\core\unc_table
+        arguments:
+            - '@dbal.conn'
+            - '%core.table_prefix%'
+
+    dark1.usernotificationcontrol.controller.acp.main:
+        class: dark1\usernotificationcontrol\controller\acp_main
+        arguments:
+            - '@language'
+            - '@log'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@dark1.usernotificationcontrol.unc_table'
+            - '@service_container'
+            - '@config'
+
+    dark1.usernotificationcontrol.listener:
+        class: dark1\usernotificationcontrol\event\main_listener
+        arguments:
+            - '@dark1.usernotificationcontrol.unc_table'
+            - '@config'
+        tags:
+            - { name: event.listener }

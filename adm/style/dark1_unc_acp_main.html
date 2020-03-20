@@ -1,0 +1,78 @@
+{% include 'overall_header.html' %}
+
+{% INCLUDECSS '@dark1_usernotificationcontrol/dark1_unc_acp_style.css' %}
+
+<h1>{{ UNC_EXT_NAME }}</h1>
+<div>{{ lang('ACP_UNC_BY') }}&nbsp;{{ UNC_EXT_DEV }}</div>
+<hr class="acp-unc-hr">
+<h2>{{ UNC_EXT_MODE }}</h2>
+
+<form id="dark1_unc_acp" name="dark1_unc_acp" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('ACP_UNC_SET') }}</legend>
+		<dl>
+			<dt>
+				<label for="dark1_unc_enable">{{ lang('ACP_UNC_ENABLE') ~ lang('COLON') }}</label>
+				<br>
+				<div>{{ lang('ACP_UNC_ENABLE_EXPLAIN') }}</div>
+			</dt>
+			<dd>
+				<label><input type="radio" class="radio" name="dark1_unc_enable" value="1" {% if UNC_ENABLE %}checked="checked"{% endif %}/> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="dark1_unc_enable" value="0" {% if not UNC_ENABLE %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('ACP_UNC_NOTIFY') }}</legend>
+		<div>{{ lang('ACP_UNC_NOTIFY_EXPLAIN') }}</div>
+		<br />
+		<table class="table1 responsive">
+			<thead>
+				<tr>
+					<th>{{ lang('NOTIFICATION_TYPE') }}</th>
+					{% for notification_methods in loops.notification_methods %}
+						<th colspan="{{ NOTIFICATION_METHODS_COLS }}">{{ notification_methods.NAME }}</th>
+					{% endfor %}
+				</tr>
+			</thead>
+			<tbody>
+			{% for notification_types in loops.notification_types %}
+				{% if notification_types.GROUP_NAME %}
+					<tr>
+						<td class="col1" colspan="{{ NOTIFICATION_TYPES_COLS }}">{{ notification_types.GROUP_NAME }}</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td class="col1">
+							{{ notification_types.NAME }}
+							{% if notification_types.EXPLAIN %}<br />&nbsp; &nbsp;{{ notification_types.EXPLAIN }}{% endif %}
+						</td>
+						{% for notification_methods in notification_types.notification_methods %}
+							<td  class="col1">
+								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="1" {% if notification_methods.SUBSCRIBED == 1 %}checked="checked"{% endif %} {% if not notification_methods.AVAILABLE %}disabled="disabled"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_ENABLE') }}</label>
+							</td>
+							<td  class="col1">
+								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="0" {% if notification_methods.SUBSCRIBED == 0 %}checked="checked"{% endif %} {% if not notification_methods.AVAILABLE %}disabled="disabled"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_NONE') }}</label>
+							</td>
+							<td  class="col1">
+								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="-1" {% if notification_methods.SUBSCRIBED == -1 %}checked="checked"{% endif %} {% if not notification_methods.AVAILABLE %}disabled="disabled"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_DISABLE') }}</label>
+							</td>
+						{% endfor %}
+					</tr>
+				{% endif %}
+			{% endfor %}
+			</tbody>
+		</table>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% include 'overall_footer.html' %}
