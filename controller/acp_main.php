@@ -82,7 +82,7 @@ class acp_main extends acp_base
 			$this->unc_table->set_notify_method_type_matrix($notify_matrix);
 
 			// Reflect in other tables
-			$this->unc_table->update_user_notifications_table($notify_matrix, $this->config['dark1_unc_enable']);
+			$this->unc_table->update_user_notifications_table($notify_matrix, (bool) $this->config['dark1_unc_enable']);
 
 			$this->success_form_on_submit();
 		}
@@ -109,7 +109,6 @@ class acp_main extends acp_base
 		$phpbb_notifications = $this->phpbb_container->get('notification_manager');
 		$notification_methods = $phpbb_notifications->get_subscription_methods();
 		$notification_types_groups = $phpbb_notifications->get_subscription_types();
-		$this->language->add_lang('ucp');
 
 		$notify_matrix = [];
 		foreach ($notification_types_groups as $group => $notification_types)
@@ -144,6 +143,8 @@ class acp_main extends acp_base
 	 */
 	private function output_notification_methods_types($notify_matrix)
 	{
+		$this->language->add_lang('ucp');
+
 		// Get phpBB Notification
 		$phpbb_notifications = $this->phpbb_container->get('notification_manager');
 		$notification_methods = $phpbb_notifications->get_subscription_methods();
