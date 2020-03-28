@@ -1,7 +1,8 @@
 {% if SCRIPT_NAME == 'ucp' and MODE == 'notification_options' %}
 	<script>
 	//<![CDATA[
-		var unc_tooltip_body = '<b title="{{ lang('UCP_UNC_DISABLE') }}" style="cursor: not-allowed;">&#10060;</b>';
+		var unc_tooltip_tick_body = '<b title="{{ lang('UCP_UNC_TICK') }}" style="cursor: not-allowed;">&#9989;</b>';
+		var unc_tooltip_untick_body = '<b title="{{ lang('UCP_UNC_UNTICK') }}" style="cursor: not-allowed;">&#10060;</b>';
 	//]]>
 	</script>
 	{% INCLUDEJS '@dark1_usernotificationcontrol/dark1_unc_ucp_script.js' %}

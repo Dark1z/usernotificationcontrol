@@ -43,5 +43,6 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	// phpBB Log
 	'ACP_UNC_LOG_SET_SAV'	=> '<strong>User Notification Control [UNC]</strong><br>» %s saved successfully!',
-	'UCP_UNC_DISABLE'		=> 'Notification Controlled by Administrator',
+	'UCP_UNC_TICK'			=> 'Notification Enabled by Administrator',
+	'UCP_UNC_UNTICK'		=> 'Notification Disabled by Administrator',
 ));
