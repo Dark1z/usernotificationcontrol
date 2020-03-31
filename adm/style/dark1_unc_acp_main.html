@@ -51,13 +51,13 @@
 						</td>
 						{% for notification_methods in notification_types.notification_methods %}
 							<td  class="col1">
-								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="1" {% if notification_methods.SUBSCRIBED == 1 %}checked="checked"{% endif %} {% if not notification_methods.AVAILABLE %}disabled="disabled"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_ENABLE') }}</label>
+								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="1" {% if notification_methods.SUBSCRIBED == 1 %}checked="checked"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_ENABLE') }}</label>
 							</td>
 							<td  class="col1">
-								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="0" {% if notification_methods.SUBSCRIBED == 0 %}checked="checked"{% endif %} {% if not notification_methods.AVAILABLE %}disabled="disabled"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_NONE') }}</label>
+								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="0" {% if notification_methods.SUBSCRIBED == 0 %}checked="checked"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_NONE') }}</label>
 							</td>
 							<td  class="col1">
-								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="-1" {% if notification_methods.SUBSCRIBED == -1 %}checked="checked"{% endif %} {% if not notification_methods.AVAILABLE %}disabled="disabled"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_DISABLE') }}</label>
+								<label><input type="radio" class="radio" name="{{ notification_types.TYPE }}_{{ notification_methods.METHOD }}" value="-1" {% if notification_methods.SUBSCRIBED == -1 %}checked="checked"{% endif %} /> {{ lang('ACP_UNC_NOTIFY_DISABLE') }}</label>
 							</td>
 						{% endfor %}
 					</tr>

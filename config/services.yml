@@ -14,9 +14,10 @@ services:
             - '@request'
             - '@template'
             - '@user'
-            - '@dark1.usernotificationcontrol.unc_table'
-            - '@service_container'
             - '@config'
+            - '@dark1.usernotificationcontrol.unc_table'
+            - '@notification.type_collection'
+            - '@notification.method_collection'
 
     dark1.usernotificationcontrol.listener:
         class: dark1\usernotificationcontrol\event\main_listener

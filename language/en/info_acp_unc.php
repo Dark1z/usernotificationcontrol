@@ -58,4 +58,5 @@ $lang = array_merge($lang, array(
 	'ACP_UNC_NOTIFY_ENABLE'		=> 'Enable',
 	'ACP_UNC_NOTIFY_DISABLE'	=> 'Disable',
 	'ACP_UNC_NOTIFY_NONE'		=> 'None',
+	'ACP_UNC_NO_LANG_KEY'		=> 'No Language Key',
 ));
