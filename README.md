@@ -7,7 +7,7 @@ This Extension Lets Admin to control User Notification .  😉
 ![Travis-CI](https://img.shields.io/badge/Travis-CI-8000FF.svg) : [![Build Status](https://travis-ci.com/dark-1/usernotificationcontrol.svg?branch=master)](https://travis-ci.com/dark-1/usernotificationcontrol)   
 ![Scrutinizer-CI](https://img.shields.io/badge/Scrutinizer-CI-8000FF.svg) : [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/build-status/master)   
 ![Actions-CI](https://img.shields.io/badge/Actions-CI-8000FF.svg) : [![Actions Status](https://github.com/dark-1/usernotificationcontrol/workflows/Actions%20CI/badge.svg)](https://github.com/dark-1/usernotificationcontrol/actions?workflow=Actions%20CI)   
-![Shields.IO](https://img.shields.io/badge/Shields-IO-8000FF.svg?style=flat-square) : [![GitHub release](https://img.shields.io/github/release/dark-1/usernotificationcontrol.svg?style=flat-square) ![license](https://img.shields.io/github/license/dark-1/usernotificationcontrol.svg?style=flat-square) ![Github All Releases](https://img.shields.io/github/downloads/dark-1/usernotificationcontrol/total.svg?style=flat-square) ![HitCount](http://hits.dwyl.io/dark-1/usernotificationcontrol.svg)](https://github.com/dark-1/usernotificationcontrol)   
+![Shields.IO](https://img.shields.io/badge/Shields-IO-8000FF.svg?style=flat-square) : [![GitHub release](https://img.shields.io/github/release/dark-1/usernotificationcontrol.svg?style=flat-square) ![license](https://img.shields.io/github/license/dark-1/usernotificationcontrol.svg?style=flat-square) ![Github All Releases](https://img.shields.io/github/downloads/dark-1/usernotificationcontrol/total.svg?style=flat-square)](https://github.com/dark-1/usernotificationcontrol)   
    
    
 ## **Features :**   
@@ -27,8 +27,11 @@ This Extension Lets Admin to control User Notification .  😉
 2. UCP Notification 1 Page:   
 [![Index](./image/02.UCP.Notification.01.png "UCP Notification 1")](./image/02.UCP.Notification.01.png)   
    
-3. UCP Notification 2 Page Tooltip:   
+3. UCP Notification 2 Page Tooltip Enabled:   
 [![Index](./image/03.UCP.Notification.02.png "UCP Notification 2")](./image/03.UCP.Notification.02.png)   
+   
+4. UCP Notification 3 Page Tooltip Disabled:   
+[![Index](./image/04.UCP.Notification.03.png "UCP Notification 3")](./image/04.UCP.Notification.03.png)   
    
    
 ## **Installation :**   
