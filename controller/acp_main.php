@@ -156,28 +156,27 @@ class acp_main extends acp_base
 
 		$block_method = 'notification_methods';
 		$block_type = 'notification_types';
-		$warn = ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') . ' : ';
 
 		foreach ($notification_methods as $method => $method_data)
 		{
 			$this->template->assign_block_vars($block_method, [
 				'METHOD'			=> $method_data['id'],
-				'NAME'				=> $this->language->is_set($method_data['lang']) ? $this->language->lang($method_data['lang']) : $warn . $method_data['id'],
+				'NAME'				=> $this->get_lang_key($method_data['lang'], $method_data['id']),
 			]);
 		}
 
 		foreach ($notification_types_groups as $group => $notification_types)
 		{
 			$this->template->assign_block_vars($block_type, [
-				'GROUP_NAME'	=> $this->language->is_set($group) ? $this->language->lang($group) : $warn . $group,
+				'GROUP_NAME'	=> $this->get_lang_key($group, $group),
 			]);
 
 			foreach ($notification_types as $type => $type_data)
 			{
 				$this->template->assign_block_vars($block_type, [
 					'TYPE'				=> $type_data['id'],
-					'NAME'				=> $this->language->is_set($type_data['lang']) ? $this->language->lang($type_data['lang']) : $warn . $type_data['id'],
-					'EXPLAIN'			=> $this->language->is_set($type_data['lang'] . '_EXPLAIN') ? $this->language->lang($type_data['lang'] . '_EXPLAIN') : '',
+					'NAME'				=> $this->get_lang_key($type_data['lang'], $type_data['id']),
+					'EXPLAIN'			=> $this->get_lang_key($type_data['lang'] . '_EXPLAIN', '', false),
 				]);
 
 				foreach ($notification_methods as $method => $method_data)
@@ -195,6 +194,23 @@ class acp_main extends acp_base
 			strtoupper($block_method) . '_COLS' => 3,
 			strtoupper($block_type) . '_COLS' => (count($notification_methods) * 3) + 1,
 		]);
+	}
+
+	/**
+	 * Get all of the subscription methods
+	 *
+	 * @param string $lang_key
+	 * @param string $sub
+	 * @param bool $warn
+	 *
+	 * @return string Array of methods
+	 * @access private
+	 */
+	private function get_lang_key($lang_key, $sub = '', $warn = true)
+	{
+		$warn = $warn ? ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') . ' : ' : '';
+
+		return $this->language->is_set($lang_key) ? $this->language->lang($lang_key) : $warn . $sub;
 	}
 
 	/**

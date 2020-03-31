@@ -144,28 +144,27 @@ class unc_table
 		{
 			foreach ($notify_matrix as $notification_method => $ary_type)
 			{
-				$sql0 = $sql1 = '';
-				$flag0_1st = $flag1_1st = true;
+				$sql_ary = [
+					0 => '',
+					1 => ''
+				];
+				$flag_1st = [
+					0 => true,
+					1 => true
+				];
+
 				foreach ($ary_type as $notification_type => $value)
 				{
-					if ($value)
-					{
-						$sql1 .= (($flag1_1st) ? '' : 'OR ' ) . 'item_type = "' . $this->db->sql_escape($notification_type) . '"' . PHP_EOL;
-						$flag1_1st = false;
-					}
-					else
-					{
-						$sql0 .= (($flag0_1st) ? '' : 'OR ' ) . 'item_type = "' . $this->db->sql_escape($notification_type) . '"' . PHP_EOL;
-						$flag0_1st = false;
-					}
+					$sql_ary[$value] .= (($flag_1st[$value]) ? '' : 'OR ' ) . 'item_type = "' . $this->db->sql_escape($notification_type) . '"' . PHP_EOL;
+					$flag_1st[$value] = false;
 				}
 
-				for ($i=0; $i < 2; $i++)
+				foreach ($sql_ary as $key => $value)
 				{
 					$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE . PHP_EOL .
-							'SET notify = ' . (int) $i . PHP_EOL .
+							'SET notify = ' . (int) $key . PHP_EOL .
 							'WHERE method = "' . $this->db->sql_escape($notification_method) . '"' . PHP_EOL .
-							'AND (' . PHP_EOL . (string) (($i === 1) ? $sql1 : $sql0) . ')';
+							'AND (' . PHP_EOL . (string) $value . ')';
 					$this->db->sql_query($sql);
 				}
 			}
