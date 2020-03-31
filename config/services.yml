@@ -4,6 +4,7 @@ services:
         class: dark1\usernotificationcontrol\core\unc_table
         arguments:
             - '@dbal.conn'
+            - '@cache.driver'
             - '%core.table_prefix%'
 
     dark1.usernotificationcontrol.controller.acp.main:

@@ -13,7 +13,8 @@ namespace dark1\usernotificationcontrol\core;
 /**
  * @ignore
  */
-use phpbb\db\driver\driver_interface;
+use phpbb\db\driver\driver_interface as db_driver;
+use phpbb\cache\driver\driver_interface as cache_driver;
 
 /**
  * User Notification Control Core Table Class.
@@ -23,8 +24,14 @@ class unc_table
 	/** @var string Table Name */
 	const TABLE_NAME = 'dark1_unc';
 
+	/** @var string Cache Key */
+	const CACHE_KEY = '_dark1_unc_notify_matrix';
+
 	/** @var \phpbb\db\driver\driver_interface */
 	protected $db;
+
+	/** @var \phpbb\cache\driver\driver_interface */
+	protected $cache;
 
 	/** @var string */
 	protected $table_prefix;
@@ -33,11 +40,13 @@ class unc_table
 	 * Constructor for User Notification Control Core Table Class.
 	 *
 	 * @param \phpbb\db\driver\driver_interface		$db				Database object
+	 * @param \phpbb\cache\driver\driver_interface	$cache			Cache object
 	 * @param string								$table_prefix
 	 */
-	public function __construct(driver_interface $db, $table_prefix)
+	public function __construct(db_driver $db, cache_driver $cache, $table_prefix)
 	{
 		$this->db				= $db;
+		$this->cache			= $cache;
 		$this->table_prefix		= $table_prefix;
 	}
 
@@ -54,15 +63,10 @@ class unc_table
 	 */
 	public function get_notify_method_type_value($notification_method, $notification_type)
 	{
-		$sql = 'SELECT notification_value'. PHP_EOL .
-				'FROM ' . $this->table_prefix . self::TABLE_NAME . PHP_EOL .
-				'WHERE notification_method = "' . $this->db->sql_escape($notification_method) . '" AND notification_type = "' . $this->db->sql_escape($notification_type) . '"';
-		$result = $this->db->sql_query($sql);
-		$row = $this->db->sql_fetchrow($result);
-		$value = (isset($row['notification_value'])) ? $row['notification_value'] : null;
-		$this->db->sql_freeresult($result);
+		// Get notify matrix
+		$notify_matrix = $this->get_notify_method_type_matrix();
 
-		return $value;
+		return isset($notify_matrix[$notification_method][$notification_type]) ? $notify_matrix[$notification_method][$notification_type] : null;
 	}
 
 
@@ -70,22 +74,29 @@ class unc_table
 	/**
 	 * Get Notification Methods & Types is Enabled {true} OR Disabled {false} in Matrix.
 	 *
-	 * @return array in form ary['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
+	 * @return array in form notify_matrix['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
 	 * @access public
 	 */
 	public function get_notify_method_type_matrix()
 	{
-		$ary = [];
+		// Get notify matrix data from the cache
+		$notify_matrix = $this->cache->get(self::CACHE_KEY);
 
-		$sql = 'SELECT * FROM ' . $this->table_prefix . self::TABLE_NAME;
-		$result = $this->db->sql_query($sql);
-		while ($row = $this->db->sql_fetchrow($result))
+		if ($notify_matrix === false)
 		{
-			$ary[$row['notification_method']][$row['notification_type']] = $row['notification_value'];
-		}
-		$this->db->sql_freeresult($result);
+			$sql = 'SELECT * FROM ' . $this->table_prefix . self::TABLE_NAME;
+			$result = $this->db->sql_query($sql);
+			while ($row = $this->db->sql_fetchrow($result))
+			{
+				$notify_matrix[$row['notification_method']][$row['notification_type']] = $row['notification_value'];
+			}
+			$this->db->sql_freeresult($result);
 
-		return $ary;
+			// Cache notify matrix data
+			$this->cache->put(self::CACHE_KEY, $notify_matrix);
+		}
+
+		return $notify_matrix;
 	}
 
 
@@ -93,21 +104,21 @@ class unc_table
 	/**
 	 * Set Notification Methods & Types is Disabled {true}in Matrix.
 	 *
-	 * @param array $ary in form ary['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
+	 * @param array $notify_matrix in form notify_matrix['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
 	 *
 	 * @return void
 	 * @access public
 	 */
-	public function set_notify_method_type_matrix($ary)
+	public function set_notify_method_type_matrix($notify_matrix)
 	{
 		// Truncate the Table
 		$sql = 'DELETE FROM ' . $this->table_prefix . self::TABLE_NAME;
 		$this->db->sql_query($sql);
 
+		// Multi-Insert the
 		$sr = 0;
 		$sql_ary = [];
-
-		foreach ($ary as $notification_method => $ary_type)
+		foreach ($notify_matrix as $notification_method => $ary_type)
 		{
 			foreach ($ary_type as $notification_type => $notification_value)
 			{
@@ -123,8 +134,10 @@ class unc_table
 				}
 			}
 		}
-
 		$this->db->sql_multi_insert($this->table_prefix . self::TABLE_NAME, $sql_ary);
+
+		// Cache notify matrix data
+		$this->cache->put(self::CACHE_KEY, $notify_matrix);
 	}
 
 
