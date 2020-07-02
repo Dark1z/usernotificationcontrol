@@ -41,8 +41,17 @@ if (empty($lang) || !is_array($lang))
 //
 
 $lang = array_merge($lang, array(
-	'ACP_UNC_TITLE'	=> 'User Notification Control',
+	// Common
+	'ACP_UNC_SET'	=> 'Settings',
+	'ACP_UNC_BY'	=> 'By',
 
-	// ACP Modes
-	'ACP_UNC_MAIN'	=> 'Main Settings',
+	// Main
+	'ACP_UNC_ENABLE'			=> 'User Notification Control Enable',
+	'ACP_UNC_ENABLE_EXPLAIN'	=> 'Enables the User Notification Control.<br>Default : No',
+	'ACP_UNC_NOTIFY'			=> 'User Notification Disable',
+	'ACP_UNC_NOTIFY_EXPLAIN'	=> 'Select the Option to force control the User Notification.<br>Default : None',
+	'ACP_UNC_NOTIFY_ENABLE'		=> 'Enable',
+	'ACP_UNC_NOTIFY_DISABLE'	=> 'Disable',
+	'ACP_UNC_NOTIFY_NONE'		=> 'None',
+	'ACP_UNC_NO_LANG_KEY'		=> 'No Language Key',
 ));

@@ -14,11 +14,6 @@ use phpbb\db\migration\migration;
 
 class unc_000_main extends migration
 {
-	public function effectively_installed()
-	{
-		return isset($this->config['dark1_unc']);
-	}
-
 	static public function depends_on()
 	{
 		return array('\phpbb\db\migration\data\v320\v320');
@@ -28,13 +23,21 @@ class unc_000_main extends migration
 	{
 		return array(
 			// Config
-			array('config.add', array('dark1_unc', 1)),
+			array('config.add', array('dark1_unc_enable', 0)),
 
 			// Module
 			array('module.add', array(
 				'acp',
 				'ACP_CAT_DOT_MODS',
 				'ACP_UNC_TITLE',
+			)),
+			array('module.add', array(
+				'acp',
+				'ACP_UNC_TITLE',
+				array(
+					'module_basename'	=> '\dark1\usernotificationcontrol\acp\main_module',
+					'modes'				=> array('main'),
+				),
 			)),
 		);
 	}

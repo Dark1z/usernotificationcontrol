@@ -25,5 +25,6 @@ services:
         arguments:
             - '@dark1.usernotificationcontrol.unc_table'
             - '@config'
+            - '@language'
         tags:
             - { name: event.listener }

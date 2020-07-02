@@ -16,6 +16,7 @@ namespace dark1\usernotificationcontrol\event;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use dark1\usernotificationcontrol\core\unc_table;
 use phpbb\config\config;
+use phpbb\language\language;
 
 /**
  * User Notification Control [UNC] Event listener.
@@ -28,16 +29,21 @@ class main_listener implements EventSubscriberInterface
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\language\language */
+	protected $language;
+
 	/**
 	 * Constructor
 	 *
 	 * @param unc_table					$unc_table
 	 * @param \phpbb\config\config		$config		phpBB config
+	 * @param \phpbb\language\language	$language	Language object
 	 */
-	public function __construct(unc_table $unc_table, config $config)
+	public function __construct(unc_table $unc_table, config $config, language $language)
 	{
 		$this->unc_table	= $unc_table;
 		$this->config		= $config;
+		$this->language		= $language;
 	}
 
 	/**
@@ -49,7 +55,7 @@ class main_listener implements EventSubscriberInterface
 	public static function getSubscribedEvents()
 	{
 		return array(
-			'core.user_setup'														=> 'load_language_on_setup',
+			'core.ucp_display_module_before'										=> 'ucp_display_module_before',
 			'core.user_add_modify_notifications_data'								=> 'user_add_modify_notifications_data',
 			'core.ucp_notifications_submit_notification_is_set'						=> 'ucp_notifications_submit_notification_is_set',
 			'core.ucp_notifications_output_notification_types_modify_template_vars'	=> 'ucp_notifications_output_notification_types_modify_template_vars',
@@ -60,21 +66,21 @@ class main_listener implements EventSubscriberInterface
 
 
 	/**
-	 * Load common language files during user setup
+	 * Load language files in UCP
 	 *
 	 * @param \phpbb\event\data	$event	Event object
 	 *
 	 * @return void
 	 * @access public
 	 */
-	public function load_language_on_setup($event)
+	public function ucp_display_module_before($event)
 	{
-		$lang_set_ext = $event['lang_set_ext'];
-		$lang_set_ext[] = array(
-			'ext_name' => 'dark1/usernotificationcontrol',
-			'lang_set' => 'lang_unc',
-		);
-		$event['lang_set_ext'] = $lang_set_ext;
+		$mode = $event['mode'];
+
+		if ($this->config['dark1_unc_enable'] == 1 && $mode == 'notification_options')
+		{
+			$this->language->add_lang('lang_unc', 'dark1/usernotificationcontrol');
+		}
 	}
 
 

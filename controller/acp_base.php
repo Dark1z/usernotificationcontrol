@@ -110,6 +110,7 @@ class acp_base
 
 		// Add our common language file
 		$this->language->add_lang('lang_unc', 'dark1/usernotificationcontrol');
+		$this->language->add_lang('lang_acp_unc', 'dark1/usernotificationcontrol');
 
 		// Create a form key for preventing CSRF attacks
 		add_form_key('dark1_unc_acp_' . $this->mode);
@@ -117,7 +118,6 @@ class acp_base
 		// Set u_action in the template
 		$this->template->assign_vars([
 			'U_ACTION'		=> $this->u_action,
-			'UNC_MODE'		=> $this->mode,
 			'UNC_EXT_MODE'	=> $this->language->lang('ACP_UNC_' . strtoupper($this->mode)),
 			'UNC_EXT_NAME'	=> $ext_name_unc,
 			'UNC_EXT_DEV'	=> $ext_by_dark1,

@@ -44,22 +44,4 @@ class unc_001_install extends migration
 			),
 		);
 	}
-
-	public function update_data()
-	{
-		return array(
-			// Config
-			array('config.add', array('dark1_unc_enable', 0)),
-
-			// Module
-			array('module.add', array(
-				'acp',
-				'ACP_UNC_TITLE',
-				array(
-					'module_basename'	=> '\dark1\usernotificationcontrol\acp\main_module',
-					'modes'				=> array('main'),
-				),
-			)),
-		);
-	}
 }
