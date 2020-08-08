@@ -1,0 +1,15 @@
+/**
+ *
+ * User Notification Control [UNC]. An extension for the phpBB Forum Software package.
+ *
+ * @copyright (c) 2020, Dark❶, https://dark1.tech
+ * @license GNU General Public License, version 2 (GPL-2.0)
+ *
+ */
+
+/* ACP Hr */
+.acp-unc-hr {
+	border-top: 2px solid #888;
+	margin: 5px 0px 0px 0px;
+	padding: 5px 0px 0px 0px;
+}
