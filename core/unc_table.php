@@ -174,11 +174,14 @@ class unc_table
 
 				foreach ($sql_ary as $key => $value)
 				{
-					$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE .
-							' SET notify = ' . (int) $key .
-							' WHERE method = "' . $this->db->sql_escape($notification_method) . '"' .
-							' AND (' . PHP_EOL . (string) $value . ')';
-					$this->db->sql_query($sql);
+					if (!empty($value))
+					{
+						$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE .
+								' SET notify = ' . (int) $key .
+								' WHERE method = "' . $this->db->sql_escape($notification_method) . '"' .
+								' AND (' . (string) $value . ')';
+						$this->db->sql_query($sql);
+					}
 				}
 			}
 		}

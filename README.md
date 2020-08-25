@@ -1,6 +1,8 @@
 # User Notification Control [UNC]
    
 This Extension Lets Admin to control User Notification .  😉   
+The phpBB's core & any other extension's notifications can be controlled (i.e. Enable/None/Disable) by this Extension.   
+Kindly note , this Extension does not allow to Create any New OR Delete any Notifications, it only displays & control's the existing provided Notifications.   
    
    
 #### Status Badge for User Notification Control [UNC] on phpBB v3.3.x :   
