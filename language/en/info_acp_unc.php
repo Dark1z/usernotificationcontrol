@@ -43,6 +43,9 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'ACP_UNC_TITLE'	=> 'User Notification Control',
 
+	// phpBB Log
+	'ACP_UNC_LOG_SET_SAV'	=> '<strong>User Notification Control [UNC]</strong><br>» %s saved successfully!',
+
 	// ACP Modes
 	'ACP_UNC_MAIN'	=> 'Main Settings',
 ));

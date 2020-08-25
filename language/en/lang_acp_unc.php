@@ -56,5 +56,5 @@ $lang = array_merge($lang, array(
 	'ACP_UNC_NOTIFY_DISABLE_EXPLAIN'	=> 'Force disable the User Notification.',
 	'ACP_UNC_NOTIFY_NONE'				=> 'None',
 	'ACP_UNC_NO_LANG_KEY'				=> 'No Language Key',
-	'ACP_UNC_NO_LANG_KEY_NOTICE'		=> '<b>Notice</b> : The “<b>%1$s</b>” is to indicate that either core or other extension(s) has not provided the required language key for the <b>Notification’s Name</b>.',
+	'ACP_UNC_NO_LANG_KEY_NOTICE'		=> '<b>Notice</b> : The “<b>%1$s </b>” is to indicate that either core or other extension(s) has not provided the required language key for the <b>Notification’s Name</b>.',
 ));
