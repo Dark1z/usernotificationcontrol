@@ -191,6 +191,7 @@ class acp_main extends acp_base
 		}
 
 		$this->template->assign_vars([
+			'UNC_NOTICE' => $this->language->lang('ACP_UNC_NO_LANG_KEY_NOTICE', $this->get_lang_key('')),
 			strtoupper($block_method) . '_COLS' => 3,
 			strtoupper($block_type) . '_COLS' => (count($notification_methods) * 3) + 1,
 		]);
@@ -208,9 +209,9 @@ class acp_main extends acp_base
 	 */
 	private function get_lang_key($lang_key, $sub = '', $warn = true)
 	{
-		$warn = $warn ? ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') . ' : ' : '';
+		$warn = $warn ? ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') : '';
 
-		return $this->language->is_set($lang_key) ? $this->language->lang($lang_key) : $warn . $sub;
+		return $this->language->is_set($lang_key) ? $this->language->lang($lang_key) : $warn . (!empty($sub) ? ' : ' . $sub : '');
 	}
 
 	/**

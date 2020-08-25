@@ -26,7 +26,12 @@
 
 	<fieldset>
 		<legend>{{ lang('ACP_UNC_NOTIFY') }}</legend>
-		<div>{{ lang('ACP_UNC_NOTIFY_EXPLAIN') }}</div>
+		<div>{{ lang('ACP_UNC_NOTIFY_EXPLAIN') ~ lang('COLON') }}</div>
+		<ul>
+			<li><b>{{ lang('ACP_UNC_NOTIFY_ENABLE') }}</b> {{ lang('COLON') ~ ' ' ~ lang('ACP_UNC_NOTIFY_ENABLE_EXPLAIN') }}</li>
+			<li><b>{{ lang('ACP_UNC_NOTIFY_DISABLE') }}</b> {{ lang('COLON') ~ ' ' ~ lang('ACP_UNC_NOTIFY_DISABLE_EXPLAIN') }}</li>
+		</ul>
+		<div>{{ UNC_NOTICE }}</div>
 		<br />
 		<table class="table1 responsive">
 			<thead>
