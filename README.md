@@ -1,13 +1,15 @@
 # User Notification Control [UNC]
    
 This Extension Lets Admin to control User Notification .  😉   
+The phpBB's core & any other extension's notifications can be controlled (i.e. Enable/None/Disable) by this Extension.   
+Kindly note , this Extension does not allow to Create any New OR Delete any Notifications, it only displays & control's the existing provided Notifications.   
    
    
 #### Status Badge for User Notification Control [UNC] on phpBB v3.3.x :   
 ![Travis-CI](https://img.shields.io/badge/Travis-CI-8000FF.svg) : [![Build Status](https://travis-ci.com/dark-1/usernotificationcontrol.svg?branch=master)](https://travis-ci.com/dark-1/usernotificationcontrol)   
 ![Scrutinizer-CI](https://img.shields.io/badge/Scrutinizer-CI-8000FF.svg) : [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/build-status/master)   
 ![Actions-CI](https://img.shields.io/badge/Actions-CI-8000FF.svg) : [![Actions Status](https://github.com/dark-1/usernotificationcontrol/workflows/Actions%20CI/badge.svg)](https://github.com/dark-1/usernotificationcontrol/actions?workflow=Actions%20CI)   
-![Shields.IO](https://img.shields.io/badge/Shields-IO-8000FF.svg?style=flat-square) : [![GitHub release](https://img.shields.io/github/release/dark-1/usernotificationcontrol.svg?style=flat-square) ![license](https://img.shields.io/github/license/dark-1/usernotificationcontrol.svg?style=flat-square) ![Github All Releases](https://img.shields.io/github/downloads/dark-1/usernotificationcontrol/total.svg?style=flat-square)](https://github.com/dark-1/usernotificationcontrol)   
+![Shields.IO](https://img.shields.io/badge/Shields-IO-8000FF.svg?style=flat-square) : [![GitHub release](https://img.shields.io/github/release/dark-1/usernotificationcontrol.svg?style=flat-square) ![license](https://img.shields.io/github/license/dark-1/usernotificationcontrol.svg?style=flat-square)](https://github.com/dark-1/usernotificationcontrol)   
    
    
 ## **Features :**   
