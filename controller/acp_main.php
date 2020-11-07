@@ -71,8 +71,6 @@ class acp_main extends acp_base
 	 */
 	public function handle()
 	{
-		$notify_matrix = [];
-
 		// Is the form being submitted to us?
 		if ($this->request->is_set_post('submit'))
 		{
@@ -99,7 +97,8 @@ class acp_main extends acp_base
 
 		// Set output variables for display in the template
 		$this->template->assign_vars([
-			'UNC_ENABLE'		=> $this->config['dark1_unc_enable'],
+			'UNC_ENABLE'	=> $this->config['dark1_unc_enable'],
+			'UNC_NOTICE'	=> $this->language->lang('ACP_UNC_NO_LANG_KEY_NOTICE', $this->get_lang_key('')),
 		]);
 	}
 
@@ -191,9 +190,8 @@ class acp_main extends acp_base
 		}
 
 		$this->template->assign_vars([
-			'UNC_NOTICE' => $this->language->lang('ACP_UNC_NO_LANG_KEY_NOTICE', $this->get_lang_key('')),
-			strtoupper($block_method) . '_COLS' => 3,
-			strtoupper($block_type) . '_COLS' => (count($notification_methods) * 3) + 1,
+			strtoupper($block_method) . '_COLS'	=> 3,
+			strtoupper($block_type) . '_COLS'	=> (count($notification_methods) * 3) + 1,
 		]);
 	}
 

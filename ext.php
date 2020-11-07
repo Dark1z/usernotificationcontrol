@@ -23,10 +23,10 @@ use phpbb\extension\base;
  */
 class ext extends base
 {
-	/** string Require phpBB v3.2.10 due to events. */
+	/** @var string Require phpBB v3.2.10 due to events. */
 	const PHPBB_MIN_3_2_X = '3.2.10';
 
-	/** string Require phpBB v3.3.1 due to events. */
+	/** @var string Require phpBB v3.3.1 due to events. */
 	const PHPBB_MIN_3_3_X = '3.3.1';
 
 	/**
@@ -50,7 +50,8 @@ class ext extends base
 		$phpbb_version = phpbb_version_compare(PHPBB_VERSION, $config['version'], '>=') ? PHPBB_VERSION : $config['version'] ;
 		list($v1, $v2) = explode('.', $phpbb_version);
 		$phpbb_min_version = 'self::PHPBB_MIN_' . $v1 . '_' . $v2 . '_X';
+		$phpbb_min_version = defined($phpbb_min_version) ? constant($phpbb_min_version) : self::PHPBB_MIN_3_3_X;
 
-		return defined($phpbb_min_version) ? phpbb_version_compare($phpbb_version, constant($phpbb_min_version), '>=') : false ;
+		return phpbb_version_compare($phpbb_version, $phpbb_min_version, '>=');
 	}
 }

@@ -168,7 +168,7 @@ class unc_table
 
 				foreach ($ary_type as $notification_type => $value)
 				{
-					$sql_ary[$value] .= (($flag_1st[$value]) ? '' : 'OR ' ) . 'item_type = "' . $this->db->sql_escape($notification_type) . '"' . PHP_EOL;
+					$sql_ary[$value] .= (($flag_1st[$value]) ? '' : 'OR ' ) . 'item_type = "' . $this->db->sql_escape($notification_type) . '"';
 					$flag_1st[$value] = false;
 				}
 
