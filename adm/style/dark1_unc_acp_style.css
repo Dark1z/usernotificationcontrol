@@ -13,3 +13,8 @@
 	margin: 5px 0px 0px 0px;
 	padding: 5px 0px 0px 0px;
 }
+
+/* Notification Group */
+td.row3 {
+	font-size: 100% !important;
+}

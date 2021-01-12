@@ -48,10 +48,8 @@ class ext extends base
 		$config = $this->container->get('config');
 
 		$phpbb_version = phpbb_version_compare(PHPBB_VERSION, $config['version'], '>=') ? PHPBB_VERSION : $config['version'] ;
-		list($v1, $v2) = explode('.', $phpbb_version);
-		$phpbb_min_version = 'self::PHPBB_MIN_' . $v1 . '_' . $v2 . '_X';
-		$phpbb_min_version = defined($phpbb_min_version) ? constant($phpbb_min_version) : self::PHPBB_MIN_3_3_X;
+		$min_version = strpos($phpbb_version, '3.2.') === 0 ? self::PHPBB_MIN_3_2_X : self::PHPBB_MIN_3_3_X;
 
-		return phpbb_version_compare($phpbb_version, $phpbb_min_version, '>=');
+		return phpbb_version_compare($phpbb_version, $min_version, '>=');
 	}
 }

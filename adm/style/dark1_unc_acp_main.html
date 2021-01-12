@@ -29,6 +29,7 @@
 		<div>{{ lang('ACP_UNC_NOTIFY_EXPLAIN') ~ lang('COLON') }}</div>
 		<ul>
 			<li><b>{{ lang('ACP_UNC_NOTIFY_ENABLE') }}</b> {{ lang('COLON') ~ ' ' ~ lang('ACP_UNC_NOTIFY_ENABLE_EXPLAIN') }}</li>
+			<li><b>{{ lang('ACP_UNC_NOTIFY_NONE') }}</b> {{ lang('COLON') ~ ' ' ~ lang('ACP_UNC_NOTIFY_NONE_EXPLAIN') }}</li>
 			<li><b>{{ lang('ACP_UNC_NOTIFY_DISABLE') }}</b> {{ lang('COLON') ~ ' ' ~ lang('ACP_UNC_NOTIFY_DISABLE_EXPLAIN') }}</li>
 		</ul>
 		<div>{{ UNC_NOTICE }}</div>
@@ -46,13 +47,13 @@
 			{% for notification_types in loops.notification_types %}
 				{% if notification_types.GROUP_NAME %}
 					<tr>
-						<td class="row3" colspan="{{ NOTIFICATION_TYPES_COLS }}">{{ notification_types.GROUP_NAME }}</td>
+						<td class="row3" colspan="{{ NOTIFICATION_TYPES_COLS }}"><b>{{ notification_types.GROUP_NAME }}</b></td>
 					</tr>
 				{% else %}
 					<tr>
 						<td class="col1">
-							{{ notification_types.NAME }}
-							{% if notification_types.EXPLAIN %}<br />&nbsp;»&nbsp;{{ notification_types.EXPLAIN }}{% endif %}
+							<b>{{ notification_types.TYPE }}</b><br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_NAME') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.NAME }}
+							{% if notification_types.EXPLAIN %}<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_EXPLAIN') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.EXPLAIN }}{% endif %}
 						</td>
 						{% for notification_methods in notification_types.notification_methods %}
 							<td  class="col1">

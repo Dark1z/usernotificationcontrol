@@ -16,6 +16,7 @@ services:
             - '@template'
             - '@user'
             - '@config'
+            - '@dispatcher'
             - '@dark1.usernotificationcontrol.unc_table'
             - '@notification.type_collection'
             - '@notification.method_collection'

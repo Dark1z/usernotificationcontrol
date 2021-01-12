@@ -157,19 +157,11 @@ class unc_table
 		{
 			foreach ($notify_matrix as $notification_method => $ary_type)
 			{
-				$sql_ary = [
-					0 => '',
-					1 => ''
-				];
-				$flag_1st = [
-					0 => true,
-					1 => true
-				];
+				$sql_ary = [ 0 => '', 1 => '' ];
 
 				foreach ($ary_type as $notification_type => $value)
 				{
-					$sql_ary[$value] .= (($flag_1st[$value]) ? '' : 'OR ' ) . 'item_type = "' . $this->db->sql_escape($notification_type) . '"';
-					$flag_1st[$value] = false;
+					$sql_ary[$value] .= (empty($sql_ary[$value]) ? '' : ' OR ' ) . "item_type = '" . $this->db->sql_escape($notification_type) . "'";
 				}
 
 				foreach ($sql_ary as $key => $value)
@@ -178,7 +170,7 @@ class unc_table
 					{
 						$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE .
 								' SET notify = ' . (int) $key .
-								' WHERE method = "' . $this->db->sql_escape($notification_method) . '"' .
+								" WHERE method = '" . $this->db->sql_escape($notification_method) . "'" .
 								' AND (' . (string) $value . ')';
 						$this->db->sql_query($sql);
 					}

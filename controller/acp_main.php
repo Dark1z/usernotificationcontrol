@@ -19,6 +19,7 @@ use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
 use phpbb\config\config;
+use phpbb\event\dispatcher_interface;
 use dark1\usernotificationcontrol\core\unc_table;
 use phpbb\notification\type\type_interface;
 use phpbb\notification\method\method_interface;
@@ -31,33 +32,38 @@ class acp_main extends acp_base
 	/** @var \phpbb\config\config */
 	protected $config;
 
+	/** @var \phpbb\event\dispatcher_interface */
+	protected $dispatcher;
+
 	/** @var \dark1\usernotificationcontrol\core\unc_table */
 	protected $unc_table;
 
 	/** @var array */
 	protected $notification_types;
 
-	/** @var method_interface[] */
+	/** @var array */
 	protected $notification_methods;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param \phpbb\language\language		$language		Language object
-	 * @param \phpbb\log\log				$log			Log object
-	 * @param \phpbb\request\request		$request		Request object
-	 * @param \phpbb\template\template		$template		Template object
-	 * @param \phpbb\user					$user			User object
-	 * @param \phpbb\config\config			$config			Config object
-	 * @param unc_table						$unc_table
-	 * @param array							$notification_types
-	 * @param array							$notification_methods
+	 * @param \phpbb\language\language							$language		Language object
+	 * @param \phpbb\log\log									$log			Log object
+	 * @param \phpbb\request\request							$request		Request object
+	 * @param \phpbb\template\template							$template		Template object
+	 * @param \phpbb\user										$user			User object
+	 * @param \phpbb\config\config								$config			Config object
+	 * @param \phpbb\event\dispatcher_interface					$dispatcher		Dispatcher object
+	 * @param \dark1\usernotificationcontrol\core\unc_table		$unc_table		UNC Table object
+	 * @param array												$notification_types
+	 * @param array												$notification_methods
 	 */
-	public function __construct(language $language, log $log, request $request, template $template, user $user, config $config, unc_table $unc_table, $notification_types, $notification_methods)
+	public function __construct(language $language, log $log, request $request, template $template, user $user, config $config, dispatcher_interface $dispatcher, unc_table $unc_table, $notification_types, $notification_methods)
 	{
 		parent::__construct($language, $log, $request, $template, $user);
 
 		$this->config				= $config;
+		$this->dispatcher			= $dispatcher;
 		$this->unc_table			= $unc_table;
 		$this->notification_types	= $notification_types;
 		$this->notification_methods	= $notification_methods;
@@ -147,7 +153,28 @@ class acp_main extends acp_base
 	 */
 	private function output_notification_methods_types($notify_matrix)
 	{
+		$add_ext_lang = [];
+		/**
+		 * Event to modify the similar topics template block
+		 *
+		 * @event dark1.usernotificationcontrol.add_ext_lang
+		 *
+		 * @var array add_ext_lang		Array with [(string) '<vendor>/<extension>' => (string) '<lang>']
+		 *
+		 * @since 1.0.2
+		 */
+		$vars = ['add_ext_lang'];
+		extract($this->dispatcher->trigger_event('dark1.usernotificationcontrol.add_ext_lang', compact($vars)));
+
+		// Add Language File(s) that are Required
 		$this->language->add_lang('ucp');
+		if (!empty($add_ext_lang))
+		{
+			foreach ($add_ext_lang as $ext => $lang)
+			{
+				$this->language->add_lang((string) $lang, (string) $ext);
+			}
+		}
 
 		// Get phpBB Notification
 		$notification_methods = $this->get_subscription_methods();
@@ -159,31 +186,31 @@ class acp_main extends acp_base
 		foreach ($notification_methods as $method => $method_data)
 		{
 			$this->template->assign_block_vars($block_method, [
-				'METHOD'			=> $method_data['id'],
-				'NAME'				=> $this->get_lang_key($method_data['lang'], $method_data['id']),
+				'METHOD'	=> $method_data['id'],
+				'NAME'		=> $this->get_lang_key($method_data['lang'], true, $method_data['id']),
 			]);
 		}
 
 		foreach ($notification_types_groups as $group => $notification_types)
 		{
 			$this->template->assign_block_vars($block_type, [
-				'GROUP_NAME'	=> $this->get_lang_key($group, $group),
+				'GROUP_NAME'	=> $this->get_lang_key($group, true, $group),
 			]);
 
 			foreach ($notification_types as $type => $type_data)
 			{
 				$this->template->assign_block_vars($block_type, [
-					'TYPE'				=> $type_data['id'],
-					'NAME'				=> $this->get_lang_key($type_data['lang'], $type_data['id']),
-					'EXPLAIN'			=> $this->get_lang_key($type_data['lang'] . '_EXPLAIN', '', false),
+					'TYPE'		=> $type_data['id'],
+					'NAME'		=> $this->get_lang_key($type_data['lang']),
+					'EXPLAIN'	=> $this->get_lang_key($type_data['lang'] . '_EXPLAIN', false),
 				]);
 
 				foreach ($notification_methods as $method => $method_data)
 				{
 					$this->template->assign_block_vars($block_type . '.' . $block_method, [
-						'METHOD'			=> $method_data['id'],
-						'NAME'				=> $this->language->lang($method_data['lang']),
-						'SUBSCRIBED'		=> isset($notify_matrix[$method_data['id']][$type_data['id']]) ? ($notify_matrix[$method_data['id']][$type_data['id']] ? 1 : -1) : 0 ,
+						'METHOD'		=> $method_data['id'],
+						'NAME'			=> $this->language->lang($method_data['lang']),
+						'SUBSCRIBED'	=> isset($notify_matrix[$method_data['id']][$type_data['id']]) ? ($notify_matrix[$method_data['id']][$type_data['id']] ? 1 : -1) : 0 ,
 					]);
 				}
 			}
@@ -199,13 +226,13 @@ class acp_main extends acp_base
 	 * Get all of the subscription methods
 	 *
 	 * @param string $lang_key
-	 * @param string $sub
 	 * @param bool $warn
+	 * @param string $sub
 	 *
 	 * @return string Array of methods
 	 * @access private
 	 */
-	private function get_lang_key($lang_key, $sub = '', $warn = true)
+	private function get_lang_key($lang_key, $warn = true, $sub = '')
 	{
 		$warn = $warn ? ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') : '';
 
