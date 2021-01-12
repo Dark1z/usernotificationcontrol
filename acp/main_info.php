@@ -3,7 +3,7 @@
  *
  * User Notification Control [UNC]. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2020, Dark❶, https://dark1.tech
+ * @copyright (c) 2020-2021, Dark❶, https://dark1.tech
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -17,16 +17,16 @@ class main_info
 {
 	public function module()
 	{
-		return array(
+		return [
 			'filename'	=> '\dark1\usernotificationcontrol\acp\main_module',
 			'title'		=> 'ACP_UNC_TITLE',
-			'modes'		=> array(
-				'main'	=> array(
+			'modes'		=> [
+				'main'	=> [
 					'title'	=> 'ACP_UNC_MAIN',
 					'auth'	=> 'ext_dark1/usernotificationcontrol && acl_a_board',
-					'cat'	=> array('ACP_UNC_TITLE')
-				),
-			),
-		);
+					'cat'	=> ['ACP_UNC_TITLE']
+				],
+			],
+		];
 	}
 }

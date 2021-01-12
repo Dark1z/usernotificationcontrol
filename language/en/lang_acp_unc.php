@@ -3,7 +3,7 @@
  *
  * User Notification Control [UNC]. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2020, Dark❶, https://dark1.tech
+ * @copyright (c) 2020-2021, Dark❶, https://dark1.tech
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  *
@@ -21,7 +21,7 @@ if (!defined('IN_PHPBB'))
 
 if (empty($lang) || !is_array($lang))
 {
-	$lang = array();
+	$lang = [];
 }
 
 // DEVELOPERS PLEASE NOTE
@@ -40,7 +40,7 @@ if (empty($lang) || !is_array($lang))
 // ’ » “ ” …
 //
 
-$lang = array_merge($lang, array(
+$lang = array_merge($lang, [
 	// Common
 	'ACP_UNC_SET'	=> 'Settings',
 	'ACP_UNC_BY'	=> 'By',
@@ -60,4 +60,4 @@ $lang = array_merge($lang, array(
 	'ACP_UNC_NOTIFY_NAME'				=> 'Name',
 	'ACP_UNC_NOTIFY_EXPLAIN'			=> 'Explain',
 	'ACP_UNC_NO_LANG_KEY_NOTICE'		=> '<b>Notice</b> : The “<b>%1$s </b>” is to indicate that neither core nor other extension(s) has not provided the required language key for the <b>Notification’s Name</b>.',
-));
+]);

@@ -3,7 +3,7 @@
  *
  * User Notification Control [UNC]. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2020, Dark❶, https://dark1.tech
+ * @copyright (c) 2020-2021, Dark❶, https://dark1.tech
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -54,13 +54,13 @@ class main_listener implements EventSubscriberInterface
 	*/
 	public static function getSubscribedEvents()
 	{
-		return array(
+		return [
 			'core.ucp_display_module_before'										=> 'ucp_display_module_before',
 			'core.user_add_modify_notifications_data'								=> 'user_add_modify_notifications_data',
 			'core.ucp_notifications_submit_notification_is_set'						=> 'ucp_notifications_submit_notification_is_set',
 			'core.ucp_notifications_output_notification_types_modify_template_vars'	=> 'ucp_notifications_output_notification_types_modify_template_vars',
 			'core.notification_manager_add_notifications_for_users_modify_data'		=> 'notification_manager_add_notifications_for_users_modify_data',
-		);
+		];
 	}
 
 
