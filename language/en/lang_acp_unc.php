@@ -59,5 +59,5 @@ $lang = array_merge($lang, [
 	'ACP_UNC_NO_LANG_KEY'				=> 'No Language Key',
 	'ACP_UNC_NOTIFY_NAME'				=> 'Name',
 	'ACP_UNC_NOTIFY_EXPLAIN'			=> 'Explain',
-	'ACP_UNC_NO_LANG_KEY_NOTICE'		=> '<b>Notice</b> : The “<b>%1$s </b>” is to indicate that neither core nor other extension(s) has not provided the required language key for the <b>Notification’s Name</b>.',
+	'ACP_UNC_NO_LANG_KEY_NOTICE'		=> '<b>Notice</b> : The “<b>%1$s </b>” is to indicate that neither core nor other extension(s) has provided the required language key for the <b>Notification’s Name</b>.',
 ]);

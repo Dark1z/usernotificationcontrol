@@ -19,54 +19,48 @@ use phpbb\request\request;
 use phpbb\template\template;
 use phpbb\user;
 use phpbb\config\config;
-use phpbb\event\dispatcher_interface;
+use phpbb\event\dispatcher_interface as dispatcher;
 use dark1\usernotificationcontrol\core\unc_table;
-use phpbb\notification\type\type_interface;
-use phpbb\notification\method\method_interface;
+use dark1\usernotificationcontrol\core\unc_helper;
 
 /**
  * User Notification Control [UNC] ACP controller Main.
  */
 class acp_main extends acp_base
 {
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\event\dispatcher_interface */
+	/** @var dispatcher */
 	protected $dispatcher;
 
-	/** @var \dark1\usernotificationcontrol\core\unc_table */
+	/** @var unc_table */
 	protected $unc_table;
 
-	/** @var array */
-	protected $notification_types;
-
-	/** @var array */
-	protected $notification_methods;
+	/** @var unc_helper */
+	protected $unc_helper;
 
 	/**
 	 * Constructor.
 	 *
-	 * @param \phpbb\language\language							$language		Language object
-	 * @param \phpbb\log\log									$log			Log object
-	 * @param \phpbb\request\request							$request		Request object
-	 * @param \phpbb\template\template							$template		Template object
-	 * @param \phpbb\user										$user			User object
-	 * @param \phpbb\config\config								$config			Config object
-	 * @param \phpbb\event\dispatcher_interface					$dispatcher		Dispatcher object
-	 * @param \dark1\usernotificationcontrol\core\unc_table		$unc_table		UNC Table object
-	 * @param array												$notification_types
-	 * @param array												$notification_methods
+	 * @param language		$language				Language object
+	 * @param log			$log					Log object
+	 * @param request		$request				Request object
+	 * @param template		$template				Template object
+	 * @param user			$user					User object
+	 * @param config		config					Config object
+	 * @param dispatcher	$dispatcher				Dispatcher object
+	 * @param unc_table		$unc_table				UNC Table object
+	 * @param unc_helper	$unc_helper				UNC Helper object
 	 */
-	public function __construct(language $language, log $log, request $request, template $template, user $user, config $config, dispatcher_interface $dispatcher, unc_table $unc_table, $notification_types, $notification_methods)
+	public function __construct(language $language, log $log, request $request, template $template, user $user, config $config, dispatcher $dispatcher, unc_table $unc_table, unc_helper $unc_helper)
 	{
 		parent::__construct($language, $log, $request, $template, $user);
 
 		$this->config				= $config;
 		$this->dispatcher			= $dispatcher;
 		$this->unc_table			= $unc_table;
-		$this->notification_types	= $notification_types;
-		$this->notification_methods	= $notification_methods;
+		$this->unc_helper			= $unc_helper;
 	}
 
 	/**
@@ -117,8 +111,8 @@ class acp_main extends acp_base
 	private function request_notify_method_type_matrix()
 	{
 		// Get phpBB Notification
-		$notification_methods = $this->get_subscription_methods();
-		$notification_types_groups = $this->get_subscription_types();
+		$notification_methods = $this->unc_helper->get_subscription_methods();
+		$notification_types_groups = $this->unc_helper->get_subscription_types();
 
 		$notify_matrix = [];
 		foreach ($notification_types_groups as $group => $notification_types)
@@ -153,13 +147,14 @@ class acp_main extends acp_base
 	 */
 	private function output_notification_methods_types($notify_matrix)
 	{
-		$add_ext_lang = [];
+		$add_ext_lang = $this->unc_helper->get_lang_unc_custom();
+
 		/**
 		 * Event to modify the similar topics template block
 		 *
 		 * @event dark1.usernotificationcontrol.add_ext_lang
 		 *
-		 * @var array add_ext_lang		Array with [(string) '<vendor>/<extension>' => (string) '<lang>']
+		 * @var array add_ext_lang		Array with [(string) '<vendor>/<extension>' => (string|array) '<lang>' | ['<lang1>', '<lang2>']]
 		 *
 		 * @since 1.0.2
 		 */
@@ -170,15 +165,23 @@ class acp_main extends acp_base
 		$this->language->add_lang('ucp');
 		if (!empty($add_ext_lang))
 		{
-			foreach ($add_ext_lang as $ext => $lang)
+			foreach ($add_ext_lang as $ext => $langs)
 			{
-				$this->language->add_lang((string) $lang, (string) $ext);
+				$langs = is_string($langs) ? [$langs] : $langs;
+
+				if (is_array($langs))
+				{
+					foreach ($langs as $lang)
+					{
+						$this->language->add_lang((string) $lang, (string) $ext);
+					}
+				}
 			}
 		}
 
 		// Get phpBB Notification
-		$notification_methods = $this->get_subscription_methods();
-		$notification_types_groups = $this->get_subscription_types();
+		$notification_methods = $this->unc_helper->get_subscription_methods();
+		$notification_types_groups = $this->unc_helper->get_subscription_types();
 
 		$block_method = 'notification_methods';
 		$block_type = 'notification_types';
@@ -237,65 +240,5 @@ class acp_main extends acp_base
 		$warn = $warn ? ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') : '';
 
 		return $this->language->is_set($lang_key) ? $this->language->lang($lang_key) : $warn . (!empty($sub) ? ' : ' . $sub : '');
-	}
-
-	/**
-	 * Get all of the subscription methods
-	 *
-	 * @return array Array of methods
-	 * @access private
-	 */
-	private function get_subscription_methods()
-	{
-		$subscription_methods = [];
-
-		/** @var method_interface $method */
-		foreach ($this->notification_methods as $method_name => $method)
-		{
-			$subscription_methods[$method_name] = [
-				'id'		=> $method->get_type(),
-				'lang'		=> str_replace('.', '_', strtoupper($method->get_type())),
-			];
-		}
-
-		return $subscription_methods;
-	}
-
-	/**
-	 * Get all of the subscription types
-	 *
-	 * @return array Array of item types
-	 * @access private
-	 */
-	private function get_subscription_types()
-	{
-		$subscription_types = [];
-
-		/** @var type_interface $type */
-		foreach ($this->notification_types as $type_name => $type)
-		{
-			$type_ary = [
-				'id'	=> $type->get_type(),
-				'lang'	=> 'NOTIFICATION_TYPE_' . strtoupper($type->get_type()),
-				'group'	=> 'NOTIFICATION_GROUP_MISCELLANEOUS',
-			];
-
-			if ($type::$notification_option !== false)
-			{
-				$type_ary = array_merge($type_ary, $type::$notification_option);
-			}
-
-			$subscription_types[$type_ary['group']][$type_ary['id']] = $type_ary;
-		}
-
-		// Move miscellaneous group to last section
-		if (isset($subscription_types['NOTIFICATION_GROUP_MISCELLANEOUS']))
-		{
-			$miscellaneous = $subscription_types['NOTIFICATION_GROUP_MISCELLANEOUS'];
-			unset($subscription_types['NOTIFICATION_GROUP_MISCELLANEOUS']);
-			$subscription_types['NOTIFICATION_GROUP_MISCELLANEOUS'] = $miscellaneous;
-		}
-
-		return $subscription_types;
 	}
 }

@@ -34,7 +34,7 @@ class main_module
 		$mode = strtolower($mode);
 
 		// check for valid Mode
-		if (class_exists('dark1\usernotificationcontrol\controller\acp_' . $mode))
+		if ($phpbb_container->has('dark1.usernotificationcontrol.controller.acp.' . $mode))
 		{
 			// Get ACP controller for Mode
 			$acp_controller = $phpbb_container->get('dark1.usernotificationcontrol.controller.acp.' . $mode);

@@ -27,10 +27,10 @@ class unc_table
 	/** @var string Cache Key */
 	const CACHE_KEY = '_dark1_unc_notify_matrix';
 
-	/** @var \phpbb\db\driver\driver_interface */
+	/** @var db_driver */
 	protected $db;
 
-	/** @var \phpbb\cache\driver\driver_interface */
+	/** @var cache_driver */
 	protected $cache;
 
 	/** @var string */
@@ -39,15 +39,15 @@ class unc_table
 	/**
 	 * Constructor for User Notification Control Core Table Class.
 	 *
-	 * @param \phpbb\db\driver\driver_interface		$db				Database object
-	 * @param \phpbb\cache\driver\driver_interface	$cache			Cache object
-	 * @param string								$table_prefix
+	 * @param db_driver		$db				Database object
+	 * @param cache_driver	$cache			Cache object
+	 * @param string		$table_prefix	phpBB Table Prefix
 	 */
 	public function __construct(db_driver $db, cache_driver $cache, $table_prefix)
 	{
-		$this->db				= $db;
-		$this->cache			= $cache;
-		$this->table_prefix		= $table_prefix;
+		$this->db			= $db;
+		$this->cache		= $cache;
+		$this->table_prefix	= $table_prefix;
 	}
 
 

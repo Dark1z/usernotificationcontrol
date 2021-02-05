@@ -10,11 +10,16 @@
 
 namespace dark1\usernotificationcontrol\migrations;
 
+/**
+ * @ignore
+ */
 use phpbb\db\migration\migration;
 
+/**
+ * Migration stage 001 : Install
+ */
 class unc_001_install extends migration
 {
-
 	static public function depends_on()
 	{
 		return ['\dark1\usernotificationcontrol\migrations\unc_000_main'];

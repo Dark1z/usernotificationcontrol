@@ -23,21 +23,21 @@ use phpbb\language\language;
  */
 class main_listener implements EventSubscriberInterface
 {
-	/** @var \dark1\usernotificationcontrol\core\unc_table */
+	/** @var unc_table */
 	protected $unc_table;
 
-	/** @var \phpbb\config\config */
+	/** @var config */
 	protected $config;
 
-	/** @var \phpbb\language\language */
+	/** @var language */
 	protected $language;
 
 	/**
 	 * Constructor
 	 *
-	 * @param unc_table					$unc_table
-	 * @param \phpbb\config\config		$config		phpBB config
-	 * @param \phpbb\language\language	$language	Language object
+	 * @param unc_table		$unc_table	UNC Table object
+	 * @param config		$config		phpBB config
+	 * @param language		$language	Language object
 	 */
 	public function __construct(unc_table $unc_table, config $config, language $language)
 	{
@@ -68,7 +68,7 @@ class main_listener implements EventSubscriberInterface
 	/**
 	 * Load language files in UCP
 	 *
-	 * @param \phpbb\event\data	$event	Event object
+	 * @param object	$event	Event object
 	 *
 	 * @return void
 	 * @access public

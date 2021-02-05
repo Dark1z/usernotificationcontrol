@@ -7,6 +7,15 @@ services:
             - '@cache.driver'
             - '%core.table_prefix%'
 
+    dark1.usernotificationcontrol.unc_helper:
+        class: dark1\usernotificationcontrol\core\unc_helper
+        arguments:
+            - '@user'
+            - '@ext.manager'
+            - '@notification.type_collection'
+            - '@notification.method_collection'
+            - '%core.php_ext%'
+
     dark1.usernotificationcontrol.controller.acp.main:
         class: dark1\usernotificationcontrol\controller\acp_main
         arguments:
@@ -18,8 +27,7 @@ services:
             - '@config'
             - '@dispatcher'
             - '@dark1.usernotificationcontrol.unc_table'
-            - '@notification.type_collection'
-            - '@notification.method_collection'
+            - '@dark1.usernotificationcontrol.unc_helper'
 
     dark1.usernotificationcontrol.listener:
         class: dark1\usernotificationcontrol\event\main_listener
