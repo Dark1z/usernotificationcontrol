@@ -14,7 +14,9 @@ namespace dark1\usernotificationcontrol\core;
  * @ignore
  */
 use phpbb\user;
+use phpbb\language\language;
 use phpbb\extension\manager as ext_manager;
+use phpbb\event\dispatcher_interface as dispatcher;
 use phpbb\notification\type\type_interface;
 use phpbb\notification\method\method_interface;
 use phpbb\finder;
@@ -27,8 +29,14 @@ class unc_helper
 	/** @var user */
 	protected $user;
 
+	/** @var language */
+	protected $language;
+
 	/** @var ext_manager */
 	protected $ext_manager;
+
+	/** @var dispatcher */
+	protected $dispatcher;
 
 	/** @var array Notification Types */
 	protected $notification_types;
@@ -42,16 +50,20 @@ class unc_helper
 	/**
 	 * Constructor for User Notification Control Core Table Class.
 	 *
+	 * @param language		$language				Language object
 	 * @param user			$user					User object
 	 * @param ext_manager	$ext_manager			phpBB Extension Manager
+	 * @param dispatcher	$dispatcher				Dispatcher object
 	 * @param array			$notification_types		phpBB Notification Types
 	 * @param array			$notification_methods	phpBB Notification Methods
 	 * @param string		$php_ext				phpBB php ext
 	 */
-	public function __construct(user $user, ext_manager $ext_manager, $notification_types, $notification_methods, $php_ext)
+	public function __construct(user $user, language $language, ext_manager $ext_manager, dispatcher $dispatcher, $notification_types, $notification_methods, $php_ext)
 	{
 		$this->user					= $user;
+		$this->language				= $language;
 		$this->ext_manager			= $ext_manager;
+		$this->dispatcher			= $dispatcher;
 		$this->notification_types	= $notification_types;
 		$this->notification_methods	= $notification_methods;
 		$this->php_ext				= $php_ext;
@@ -138,7 +150,6 @@ class unc_helper
 	 */
 	public function get_lang_unc_custom()
 	{
-		$lang_ary = [];
 		$ext_name = 'dark1/usernotificationcontrol';
 		$ext_lang = 'lang_unc_custom';
 
@@ -149,17 +160,70 @@ class unc_helper
 			->prefix($ext_lang)
 			->suffix('.'.$this->php_ext)
 			->directory("language/".$this->user->lang_name)
-			//->extension_directory("/language/".$this->user->lang_name)
-			//->core_path("language/".$this->user->lang_name)
 			->get_files();
 
 		// Check if exists
-		if (current($lang_file_path))
-		{
-			$lang_ary = [$ext_name => $ext_lang];
-		}
+		$lang_ary = (current($lang_file_path)) ? [$ext_name => $ext_lang] : [];
 
 		return $lang_ary;
+	}
+
+
+
+	/**
+	 * Add Required Lang File(s).
+	 *
+	 * @return void
+	 * @access public
+	 */
+	public function add_lang()
+	{
+		$add_ext_lang = $this->get_lang_unc_custom();
+
+		/**
+		 * Event to modify the similar topics template block
+		 *
+		 * @event dark1.usernotificationcontrol.add_ext_lang
+		 *
+		 * @var array add_ext_lang		Array with [(string) '<vendor>/<extension>' => (string|array) '<lang>' | ['<lang1>', '<lang2>']]
+		 *
+		 * @since 1.0.2
+		 * @changed 1.0.4	The add_ext_lang now accepts array of lang(s)
+		 */
+		$vars = ['add_ext_lang'];
+		extract($this->dispatcher->trigger_event('dark1.usernotificationcontrol.add_ext_lang', compact($vars)));
+
+		// Add Language File(s) that are Required
+		$this->language->add_lang('ucp');
+		if (!empty($add_ext_lang))
+		{
+			foreach ($add_ext_lang as $ext => $langs)
+			{
+				$langs = is_string($langs) ? [$langs] : $langs;
+				foreach ($langs as $lang)
+				{
+					$this->language->add_lang((string) $lang, (string) $ext);
+				}
+			}
+		}
+	}
+
+
+
+	/**
+	 * Get all of the subscription methods
+	 *
+	 * @param string $lang_key
+	 * @param bool $warn
+	 * @param string $sub
+	 *
+	 * @return string Array of methods
+	 * @access public
+	 */
+	public function get_lang_key($lang_key, $warn = true, $sub = '')
+	{
+		$warn = $warn ? ' ⚠️ ' . $this->language->lang('ACP_UNC_NO_LANG_KEY') : '';
+		return $this->language->is_set($lang_key) ? $this->language->lang($lang_key) : $warn . (!empty($sub) ? ' : ' . $sub : '');
 	}
 
 }
