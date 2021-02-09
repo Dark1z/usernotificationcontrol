@@ -174,5 +174,4 @@ class unc_table
 			}
 		}
 	}
-
 }

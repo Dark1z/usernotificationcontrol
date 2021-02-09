@@ -66,10 +66,12 @@ class acp_main extends acp_base
 		$this->unc_helper		= $unc_helper;
 		$this->notify_matrix	= [];
 
-		// Get phpBB Notification
+		// Get phpBB Notification Collection Arrays
 		$this->notification_methods = $this->unc_helper->get_subscription_methods();
 		$this->notification_types_groups = $this->unc_helper->get_subscription_types();
 	}
+
+
 
 	/**
 	 * Display the options a user can configure for Main Mode.
@@ -106,9 +108,9 @@ class acp_main extends acp_base
 		// Add Required Lang File(s)
 		$this->unc_helper->add_lang();
 
-		// Get No Notify Matrix & display the Options
+		// Get Not Notify Matrix & display the Options
 		$this->notify_matrix = $this->unc_table->get_notify_method_type_matrix();
-		$this->display_notification_methods_types($this->notify_matrix);
+		$this->display_notification_methods_types();
 
 		// Set output variables for display in the template
 		$this->template->assign_vars([
@@ -116,6 +118,8 @@ class acp_main extends acp_base
 			'UNC_NOTICE'	=> $this->language->lang('ACP_UNC_NO_LANG_KEY_NOTICE', $this->unc_helper->get_lang_key('')),
 		]);
 	}
+
+
 
 	/**
 	 * Request the Notification Methods and Types Matrix.
@@ -145,6 +149,8 @@ class acp_main extends acp_base
 		}
 	}
 
+
+
 	/**
 	 * Display the Notification Methods and Types with their options.
 	 *
@@ -164,6 +170,8 @@ class acp_main extends acp_base
 			strtoupper($block_type) . '_COLS'	=> (count($this->notification_methods) * 3) + 1,
 		]);
 	}
+
+
 
 	/**
 	 * Display the Notification Types.
@@ -195,6 +203,8 @@ class acp_main extends acp_base
 			}
 		}
 	}
+
+
 
 	/**
 	 * Display the Notification Methods.
