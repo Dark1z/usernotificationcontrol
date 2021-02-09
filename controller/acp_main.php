@@ -36,6 +36,15 @@ class acp_main extends acp_base
 	/** @var unc_helper */
 	protected $unc_helper;
 
+	/** @var array */
+	protected $notification_methods;
+
+	/** @var array */
+	protected $notification_types_groups;
+
+	/** @var array */
+	protected $notify_matrix;
+
 	/**
 	 * Constructor.
 	 *
@@ -52,9 +61,14 @@ class acp_main extends acp_base
 	{
 		parent::__construct($language, $log, $request, $template, $user);
 
-		$this->config				= $config;
-		$this->unc_table			= $unc_table;
-		$this->unc_helper			= $unc_helper;
+		$this->config			= $config;
+		$this->unc_table		= $unc_table;
+		$this->unc_helper		= $unc_helper;
+		$this->notify_matrix	= [];
+
+		// Get phpBB Notification
+		$this->notification_methods = $this->unc_helper->get_subscription_methods();
+		$this->notification_types_groups = $this->unc_helper->get_subscription_types();
 	}
 
 	/**
@@ -71,16 +85,20 @@ class acp_main extends acp_base
 			$this->check_form_on_submit();
 
 			// Set the options the user configured
-			$this->config->set('dark1_unc_enable', $this->request->variable('dark1_unc_enable', 0));
+			$dark1_unc_enable = $this->request->variable('dark1_unc_enable', 0);
+			$this->config->set('dark1_unc_enable', $dark1_unc_enable);
 
 			// Get No Notify Matrix
-			$notify_matrix = $this->request_notify_method_type_matrix();
+			$this->request_notify_method_type_matrix();
 
 			// Set No Notify Matrix
-			$this->unc_table->set_notify_method_type_matrix($notify_matrix);
+			$this->unc_table->set_notify_method_type_matrix($this->notify_matrix);
 
-			// Reflect in other tables
-			$this->unc_table->update_user_notifications_table($notify_matrix, (bool) $this->config['dark1_unc_enable']);
+			// Reflect in other tables if enabled
+			if ($dark1_unc_enable)
+			{
+				$this->unc_table->update_user_notifications_table($this->notify_matrix);
+			}
 
 			$this->success_form_on_submit();
 		}
@@ -89,8 +107,8 @@ class acp_main extends acp_base
 		$this->unc_helper->add_lang();
 
 		// Get No Notify Matrix & display the Options
-		$notify_matrix = $this->unc_table->get_notify_method_type_matrix();
-		$this->display_notification_methods_types($notify_matrix);
+		$this->notify_matrix = $this->unc_table->get_notify_method_type_matrix();
+		$this->display_notification_methods_types($this->notify_matrix);
 
 		// Set output variables for display in the template
 		$this->template->assign_vars([
@@ -102,64 +120,63 @@ class acp_main extends acp_base
 	/**
 	 * Request the Notification Methods and Types Matrix.
 	 *
-	 * @return array $notify_matrix
 	 * @access private
 	 */
 	private function request_notify_method_type_matrix()
 	{
-		// Get phpBB Notification
-		$notification_methods = $this->unc_helper->get_subscription_methods();
-		$notification_types_groups = $this->unc_helper->get_subscription_types();
-
-		$notify_matrix = [];
-		foreach ($notification_types_groups as $group => $notification_types)
+		$this->notify_matrix = [];
+		foreach ($this->notification_types_groups as $group => $notification_types)
 		{
 			foreach ($notification_types as $type => $type_data)
 			{
-				foreach ($notification_methods as $method => $method_data)
+				foreach ($this->notification_methods as $method => $method_data)
 				{
 					$notify_value = $this->request->variable(str_replace('.', '_', $type_data['id'] . '_' . $method_data['id']), 0);
 					if ($notify_value == 1)
 					{
-						$notify_matrix[$method_data['id']][$type_data['id']] = true;
+						$this->notify_matrix[$method_data['id']][$type_data['id']] = true;
 					}
 					else if ($notify_value == -1)
 					{
-						$notify_matrix[$method_data['id']][$type_data['id']] = false;
+						$this->notify_matrix[$method_data['id']][$type_data['id']] = false;
 					}
 				}
 			}
 		}
-
-		return $notify_matrix;
 	}
 
 	/**
 	 * Display the Notification Methods and Types with their options.
 	 *
-	 * @param array $notify_matrix
+	 * @return void
+	 * @access private
+	 */
+	private function display_notification_methods_types()
+	{
+		$block_method = 'notification_methods';
+		$block_type = 'notification_types';
+
+		$this->display_notification_methods($block_method);
+		$this->display_notification_types($block_type, $block_method);
+
+		$this->template->assign_vars([
+			strtoupper($block_method) . '_COLS'	=> 3,
+			strtoupper($block_type) . '_COLS'	=> (count($this->notification_methods) * 3) + 1,
+		]);
+	}
+
+	/**
+	 * Display the Notification Types.
+	 *
+	 * @param string $block_type
+	 * @param string $block_method
 	 *
 	 * @return void
 	 * @access private
 	 */
-	private function display_notification_methods_types($notify_matrix)
+	private function display_notification_types($block_type, $block_method)
 	{
-		// Get phpBB Notification
-		$notification_methods = $this->unc_helper->get_subscription_methods();
-		$notification_types_groups = $this->unc_helper->get_subscription_types();
-
-		$block_method = 'notification_methods';
-		$block_type = 'notification_types';
-
-		foreach ($notification_methods as $method => $method_data)
-		{
-			$this->template->assign_block_vars($block_method, [
-				'METHOD'	=> $method_data['id'],
-				'NAME'		=> $this->unc_helper->get_lang_key($method_data['lang'], true, $method_data['id']),
-			]);
-		}
-
-		foreach ($notification_types_groups as $group => $notification_types)
+		foreach ($this->notification_types_groups as $group => $notification_types)
 		{
 			$this->template->assign_block_vars($block_type, [
 				'GROUP_NAME'	=> $this->unc_helper->get_lang_key($group, true, $group),
@@ -169,23 +186,35 @@ class acp_main extends acp_base
 			{
 				$this->template->assign_block_vars($block_type, [
 					'TYPE'		=> $type_data['id'],
+					'TEXT'		=> implode(' ',array_unique(explode(' ', str_replace(['notification.type', '.', '_'], ' ', $type_data['id'])))),
 					'NAME'		=> $this->unc_helper->get_lang_key($type_data['lang']),
 					'EXPLAIN'	=> $this->unc_helper->get_lang_key($type_data['lang'] . '_EXPLAIN', false),
 				]);
 
-				foreach ($notification_methods as $method => $method_data)
-				{
-					$this->template->assign_block_vars($block_type . '.' . $block_method, [
-						'METHOD'		=> $method_data['id'],
-						'SUBSCRIBED'	=> isset($notify_matrix[$method_data['id']][$type_data['id']]) ? ($notify_matrix[$method_data['id']][$type_data['id']] ? 1 : -1) : 0 ,
-					]);
-				}
+				$this->display_notification_methods($block_type . '.' . $block_method, $type_data['id']);
 			}
 		}
+	}
 
-		$this->template->assign_vars([
-			strtoupper($block_method) . '_COLS'	=> 3,
-			strtoupper($block_type) . '_COLS'	=> (count($notification_methods) * 3) + 1,
-		]);
+	/**
+	 * Display the Notification Methods.
+	 *
+	 * @param string		$block_var
+	 * @param string|bool	$type_id
+	 *
+	 * @return void
+	 * @access private
+	 */
+	private function display_notification_methods($block_var, $type_id = false)
+	{
+		foreach ($this->notification_methods as $method => $method_data)
+		{
+			$this->template->assign_block_vars($block_var, array_merge(
+				['METHOD'	=> $method_data['id']],
+				($type_id === false)
+				? ['NAME' => $this->unc_helper->get_lang_key($method_data['lang'], true, $method_data['id'])]
+				: ['SUBSCRIBED'	=> isset($this->notify_matrix[$method_data['id']][$type_id]) ? ($this->notify_matrix[$method_data['id']][$type_id] ? 1 : -1) : 0]
+			));
+		}
 	}
 }

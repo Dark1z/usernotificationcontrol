@@ -52,7 +52,7 @@
 				{% else %}
 					<tr>
 						<td class="col1">
-							<b>{{ notification_types.TYPE }}</b><br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_NAME') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.NAME }}
+							<b>{{ notification_types.TEXT }}</b><br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_NAME') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.NAME }}
 							{% if notification_types.EXPLAIN %}<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_EXPLAIN') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.EXPLAIN }}{% endif %}
 						</td>
 						{% for notification_methods in notification_types.notification_methods %}

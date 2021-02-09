@@ -15,6 +15,11 @@
 }
 
 /* Notification Group */
-td.row3 {
+td.row3 > b {
 	font-size: 100% !important;
+}
+
+/* Notification Group Type */
+td.col1 > b {
+	text-transform: capitalize !important;
 }

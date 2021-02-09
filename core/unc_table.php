@@ -146,34 +146,30 @@ class unc_table
 	 * Update User Notification Table using No Notify Matrix.
 	 *
 	 * @param array $notify_matrix in form notify_matrix['notification_method']['notification_type'] = Enabled {true} OR Disabled {false}
-	 * @param bool $update to Update or not
 	 *
 	 * @return void
 	 * @access public
 	 */
-	public function update_user_notifications_table($notify_matrix, $update)
+	public function update_user_notifications_table($notify_matrix)
 	{
-		if ($update)
+		foreach ($notify_matrix as $notification_method => $notification_type_ary)
 		{
-			foreach ($notify_matrix as $notification_method => $notification_type_ary)
+			$sql_ary = [ 0 => '', 1 => '' ];
+
+			foreach ($notification_type_ary as $notification_type => $notify)
 			{
-				$sql_ary = [ 0 => '', 1 => '' ];
+				$sql_ary[$notify] .= (empty($sql_ary[$notify]) ? '' : ' OR ' ) . "item_type = '" . $this->db->sql_escape($notification_type) . "'";
+			}
 
-				foreach ($notification_type_ary as $notification_type => $notify)
+			foreach ($sql_ary as $notify => $item_type_str)
+			{
+				if (!empty($item_type_str))
 				{
-					$sql_ary[$notify] .= (empty($sql_ary[$notify]) ? '' : ' OR ' ) . "item_type = '" . $this->db->sql_escape($notification_type) . "'";
-				}
-
-				foreach ($sql_ary as $notify => $item_type_str)
-				{
-					if (!empty($item_type_str))
-					{
-						$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE .
-								' SET notify = ' . (int) $notify .
-								" WHERE method = '" . $this->db->sql_escape($notification_method) . "'" .
-								' AND (' . (string) $item_type_str . ')';
-						$this->db->sql_query($sql);
-					}
+					$sql = 'UPDATE ' . USER_NOTIFICATIONS_TABLE .
+							' SET notify = ' . (int) $notify .
+							" WHERE method = '" . $this->db->sql_escape($notification_method) . "'" .
+							' AND (' . (string) $item_type_str . ')';
+					$this->db->sql_query($sql);
 				}
 			}
 		}
