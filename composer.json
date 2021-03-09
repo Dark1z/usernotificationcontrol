@@ -39,11 +39,11 @@
 	"readme": "./README.md",
 	"support": {
 		"email": "phpbb@dark1.tech",
-		"issues": "https://github.com/dark-1/usernotificationcontrol/issues",
+		"issues": "https://github.com/Dark1z/usernotificationcontrol/issues",
 		"forum": "https://phpbb.com/customise/db/extension/user_notification_control/support",
-		"wiki": "https://github.com/dark-1/usernotificationcontrol/wiki",
-		"source": "https://github.com/dark-1/usernotificationcontrol",
+		"wiki": "https://github.com/Dark1z/usernotificationcontrol/wiki",
+		"source": "https://github.com/Dark1z/usernotificationcontrol",
 		"docs": "https://github.dark1.tech/usernotificationcontrol",
-		"chat": "https://github.com/dark-1/usernotificationcontrol/discussions"
+		"chat": "https://github.com/Dark1z/usernotificationcontrol/discussions"
 	}
 }

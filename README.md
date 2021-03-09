@@ -6,9 +6,9 @@ Kindly note , this Extension does not allow to Create any New OR Delete any Noti
    
    
 #### Status Badge for User Notification Control [UNC] on phpBB v3.3.x :   
-![Actions-CI](https://img.shields.io/badge/Actions-CI-8000FF.svg) : [![Actions Status](https://github.com/dark-1/usernotificationcontrol/workflows/Actions%20CI/badge.svg)](https://github.com/dark-1/usernotificationcontrol/actions?workflow=Actions%20CI)   
-![Scrutinizer-CI](https://img.shields.io/badge/Scrutinizer-CI-8000FF.svg) : [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/badges/build.png?b=master)](https://scrutinizer-ci.com/g/dark-1/usernotificationcontrol/build-status/master)   
-![Shields.IO](https://img.shields.io/badge/Shields-IO-8000FF.svg?style=flat-square) : [![GitHub release](https://img.shields.io/github/release/dark-1/usernotificationcontrol.svg?style=flat-square) ![license](https://img.shields.io/github/license/dark-1/usernotificationcontrol.svg?style=flat-square)](https://github.com/dark-1/usernotificationcontrol)   
+![Actions-CI](https://img.shields.io/badge/Actions-CI-8000FF.svg) : [![Actions Status](https://github.com/Dark1z/usernotificationcontrol/workflows/Actions%20CI/badge.svg)](https://github.com/Dark1z/usernotificationcontrol/actions?workflow=Actions%20CI)   
+![Scrutinizer-CI](https://img.shields.io/badge/Scrutinizer-CI-8000FF.svg) : [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Dark1z/usernotificationcontrol/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Dark1z/usernotificationcontrol/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/Dark1z/usernotificationcontrol/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Dark1z/usernotificationcontrol/build-status/master)   
+![Shields.IO](https://img.shields.io/badge/Shields-IO-8000FF.svg?style=flat-square) : [![GitHub release](https://img.shields.io/github/release/Dark1z/usernotificationcontrol.svg?style=flat-square) ![license](https://img.shields.io/github/license/Dark1z/usernotificationcontrol.svg?style=flat-square)](https://github.com/Dark1z/usernotificationcontrol)   
    
    
 ## **Features :**   
@@ -21,7 +21,7 @@ Kindly note , this Extension does not allow to Create any New OR Delete any Noti
 3. Displays the *Notification Controlled by Administrator* in User's UCP Notification Options.   
    
    
-## For More Detail's & ScreenShot's : [GitHub Page](https://dark-1.github.io/usernotificationcontrol/)   
+## For More Detail's & ScreenShot's : [GitHub Page](https://Dark1z.github.io/usernotificationcontrol/)   
    
    
 ## **Installation :**   
@@ -65,9 +65,9 @@ Detailed phpBB standard Uninstallation of Extensions here : [phpBB Extensions Re
    
 ## **Links :**   
    
-**GitHub Repository** : [usernotificationcontrol](https://github.com/dark-1/usernotificationcontrol)   
+**GitHub Repository** : [usernotificationcontrol](https://github.com/Dark1z/usernotificationcontrol)   
 **phpBB Customisation Database Extension** : [User Notification Control](https://www.phpbb.com/customise/db/extension/user_notification_control)   
-**For more Details Go Here** : [User Notification Control [UNC]](https://dark-1.github.io/usernotificationcontrol)   
+**For more Details Go Here** : [User Notification Control [UNC]](https://Dark1z.github.io/usernotificationcontrol)   
    
    
 ## License [GPLv2](license.txt)   
