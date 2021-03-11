@@ -196,6 +196,7 @@ class acp_main extends acp_base
 					'TYPE'		=> $type_data['id'],
 					'TEXT'		=> implode(' ',array_unique(explode(' ', str_replace(['notification.type', '.', '_'], ' ', $type_data['id'])))),
 					'NAME'		=> $this->unc_helper->get_lang_key($type_data['lang']),
+					'LANG_KEY'	=> $type_data['lang'],
 					'EXPLAIN'	=> $this->unc_helper->get_lang_key($type_data['lang'] . '_EXPLAIN', false),
 				]);
 

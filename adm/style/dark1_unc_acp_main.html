@@ -1,6 +1,7 @@
 {% include 'overall_header.html' %}
 
 {% INCLUDECSS '@dark1_usernotificationcontrol/dark1_unc_acp_style.css' %}
+{% INCLUDEJS '@dark1_usernotificationcontrol/dark1_unc_acp_script.js' %}
 
 <h1>{{ UNC_EXT_NAME }}</h1>
 <div>{{ lang('ACP_UNC_BY') }}&nbsp;{{ UNC_EXT_DEV }}</div>
@@ -33,7 +34,11 @@
 			<li><b>{{ lang('ACP_UNC_NOTIFY_DISABLE') }}</b> {{ lang('COLON') ~ ' ' ~ lang('ACP_UNC_NOTIFY_DISABLE_EXPLAIN') }}</li>
 		</ul>
 		<div>{{ UNC_NOTICE }}</div>
-		<br />
+		<p class="quick">
+			<span class="small">
+				<a id="toggleuncdebug" class="button1">{{ lang('ACP_UNC_NOTIFY_TOGGLE') }}</a>&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_TOGGLE_EXPLAIN') }}
+			</span>
+		</p>
 		<table class="table1 responsive">
 			<thead>
 				<tr>
@@ -53,6 +58,10 @@
 					<tr>
 						<td class="col1">
 							<b>{{ notification_types.TEXT }}</b><br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_NAME') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.NAME }}
+							<span data-uncdebug class="hide">
+								<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_TYPE_ID') ~ ' ' ~ lang('COLON') }}&nbsp;<code>{{ notification_types.TYPE }}</code>
+								<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_LANG_KEY') ~ ' ' ~ lang('COLON') }}&nbsp;<code>{{ notification_types.LANG_KEY }}</code>
+							</span>
 							{% if notification_types.EXPLAIN %}<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_EXPLAIN') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.EXPLAIN }}{% endif %}
 						</td>
 						{% for notification_methods in notification_types.notification_methods %}

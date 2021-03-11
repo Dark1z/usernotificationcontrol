@@ -145,7 +145,7 @@ class unc_helper
 	/**
 	 * Get all of the subscription methods
 	 *
-	 * @return array Array of methods
+	 * @return array Array of lang(s)
 	 * @access public
 	 */
 	public function get_lang_unc_custom()

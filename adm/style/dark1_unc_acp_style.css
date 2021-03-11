@@ -23,3 +23,21 @@ td.row3 > b {
 td.col1 > b {
 	text-transform: capitalize !important;
 }
+
+/* DeBug Display Hide */
+span[data-uncdebug].hide {
+	display: none;
+}
+
+/* DeBug Display Show */
+span[data-uncdebug].show {
+	display: contents !important;
+}
+
+/* DeBug Code */
+span[data-uncdebug] > code {
+	border: 1px solid #FF6666;
+	color: #AA0000;
+	white-space: pre;
+	padding: 0 3px;
+}
