@@ -159,7 +159,11 @@ class main_listener implements EventSubscriberInterface
 		{
 			$value = $this->unc_table->get_notify_method_type_value($method_data['id'], $type_data['id']);
 
-			$tpl_ary['AVAILABLE'] = (isset($value)) ? false : $tpl_ary['AVAILABLE'] ;
+			if (isset($value))
+			{
+				$tpl_ary['SUBSCRIBED'] = $value;
+				$tpl_ary['AVAILABLE'] = false;
+			}
 		}
 
 		$event['tpl_ary'] = $tpl_ary;

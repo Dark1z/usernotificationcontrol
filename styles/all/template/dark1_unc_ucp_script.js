@@ -7,5 +7,5 @@
  *
  */
 
-$('input:checkbox:checked:disabled').after(unc_tooltip_tick_body).remove();
-$('input:checkbox:disabled').after(unc_tooltip_untick_body).remove();
+$('input:checkbox:checked:disabled').after(unc_tooltip_tick_body).hide();
+$('input:checkbox:not(:checked):disabled').after(unc_tooltip_untick_body).hide();

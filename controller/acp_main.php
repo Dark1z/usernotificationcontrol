@@ -115,7 +115,7 @@ class acp_main extends acp_base
 		// Set output variables for display in the template
 		$this->template->assign_vars([
 			'UNC_ENABLE'	=> $this->config['dark1_unc_enable'],
-			'UNC_NOTICE'	=> $this->language->lang('ACP_UNC_NO_LANG_KEY_NOTICE', $this->unc_helper->get_lang_key('')),
+			'UNC_NOTICE'	=> $this->unc_helper->get_lang_key(''),
 		]);
 	}
 

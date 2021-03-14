@@ -63,5 +63,7 @@ $lang = array_merge($lang, [
 	'ACP_UNC_NOTIFY_LANG_KEY'			=> 'Language Key',
 	'ACP_UNC_NOTIFY_TOGGLE'				=> 'Toggle',
 	'ACP_UNC_NOTIFY_TOGGLE_EXPLAIN'		=> 'To display additional Info',
-	'ACP_UNC_NO_LANG_KEY_NOTICE'		=> '<b>Notice</b> : The “<b>%1$s </b>” is to indicate that neither core nor other extension(s) has provided the required language key for the <b>Notification’s Name</b>.',
+	'ACP_UNC_NO_NOTICE_TITLE'			=> 'Notice',
+	'ACP_UNC_NO_NOTICE_LANG_KEY'		=> 'The “<b>%1$s </b>” is to indicate that neither phpBB core nor other extension(s) has provided the required language key for the <b>Notification’s Name</b>.',
+	'ACP_UNC_NO_NOTICE_FAQ_INFO'		=> 'For further details on this, read FAQ of this Extension on phpBB Customisation Database.',
 ]);
