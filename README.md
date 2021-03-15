@@ -21,7 +21,7 @@ Kindly note , this Extension does not allow to Create any New OR Delete any Noti
 3. Displays the *Notification Controlled by Administrator* in User's UCP Notification Options.   
    
    
-## For More Detail's & ScreenShot's : [GitHub Page](https://Dark1z.github.io/usernotificationcontrol/)   
+## For More Detail's & ScreenShot's : [GitHub Page](https://github.dark1.tech/usernotificationcontrol/)   
    
    
 ## **Installation :**   
@@ -67,7 +67,7 @@ Detailed phpBB standard Uninstallation of Extensions here : [phpBB Extensions Re
    
 **GitHub Repository** : [usernotificationcontrol](https://github.com/Dark1z/usernotificationcontrol)   
 **phpBB Customisation Database Extension** : [User Notification Control](https://www.phpbb.com/customise/db/extension/user_notification_control)   
-**For more Details Go Here** : [User Notification Control [UNC]](https://Dark1z.github.io/usernotificationcontrol)   
+**For more Details Go Here** : [User Notification Control [UNC]](https://github.dark1.tech/usernotificationcontrol)   
    
    
 ## License [GPLv2](license.txt)   
