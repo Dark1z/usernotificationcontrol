@@ -86,11 +86,12 @@ class unc_table
 		{
 			$sql = 'SELECT * FROM ' . $this->table_prefix . self::TABLE_NAME;
 			$result = $this->db->sql_query($sql);
-			while ($row = $this->db->sql_fetchrow($result))
+			$unc_rows = $this->db->sql_fetchrowset($result);
+			$this->db->sql_freeresult($result);
+			foreach ($unc_rows as $row)
 			{
 				$notify_matrix[$row['notification_method']][$row['notification_type']] = $row['notification_value'];
 			}
-			$this->db->sql_freeresult($result);
 
 			// Cache notify matrix data
 			$this->cache->put(self::CACHE_KEY, $notify_matrix);
