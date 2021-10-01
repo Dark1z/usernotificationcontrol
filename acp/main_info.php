@@ -26,6 +26,11 @@ class main_info
 					'auth'	=> 'ext_dark1/usernotificationcontrol && acl_a_board',
 					'cat'	=> ['ACP_UNC_TITLE']
 				],
+				'prune'	=> [
+					'title'	=> 'ACP_UNC_PRUNE',
+					'auth'	=> 'ext_dark1/usernotificationcontrol && acl_a_board',
+					'cat'	=> ['ACP_UNC_TITLE']
+				],
 			],
 		];
 	}
