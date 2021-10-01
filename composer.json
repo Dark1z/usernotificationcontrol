@@ -3,8 +3,8 @@
 	"type": "phpbb-extension",
 	"description": "User Notification Control [UNC]",
 	"homepage": "https://phpbb.com/customise/db/extension/user_notification_control",
-	"version": "1.0.6",
-	"time": "2021-07-30",
+	"version": "1.1.0",
+	"time": "2021-10-01",
 	"keywords": [
 		"phpbb",
 		"extension",

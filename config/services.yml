@@ -30,6 +30,18 @@ services:
             - '@dark1.usernotificationcontrol.unc_table'
             - '@dark1.usernotificationcontrol.unc_helper'
 
+    dark1.usernotificationcontrol.controller.acp.prune:
+        class: dark1\usernotificationcontrol\controller\acp_prune
+        arguments:
+            - '@language'
+            - '@log'
+            - '@request'
+            - '@template'
+            - '@user'
+            - '@config'
+            - '@cron.manager'
+            - '@dbal.conn'
+
     dark1.usernotificationcontrol.listener:
         class: dark1\usernotificationcontrol\event\main_listener
         arguments:
@@ -38,3 +50,14 @@ services:
             - '@language'
         tags:
             - { name: event.listener }
+
+    dark1.usernotificationcontrol.cron.auto_prune_notify:
+        class: dark1\usernotificationcontrol\cron\auto_prune_notify
+        arguments:
+            - '@config'
+            - '@notification_manager'
+            - '@log'
+        calls:
+            - [set_name, [dark1.usernotificationcontrol.cron.auto_prune_notify]]
+        tags:
+            - { name: cron.task }

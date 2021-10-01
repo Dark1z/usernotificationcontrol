@@ -66,4 +66,13 @@ $lang = array_merge($lang, [
 	'ACP_UNC_NO_NOTICE_TITLE'			=> 'Notice',
 	'ACP_UNC_NO_NOTICE_LANG_KEY'		=> 'The “<b>%1$s </b>” is to indicate that neither phpBB core nor other extension(s) has provided the required language key for the <b>Notification’s Name</b>.',
 	'ACP_UNC_NO_NOTICE_FAQ_INFO'		=> 'For further details on this, read FAQ of this Extension on “phpBB Customisation Database” OR “GitHub Wiki”.',
+
+	// Prune
+	'ACP_UNC_CRON_ENABLE'				=> 'Enable Auto Prune All Notification(s)',
+	'ACP_UNC_CRON_INTERVAL'				=> 'Auto Prune Notification Interval',
+	'ACP_UNC_CRON_LAST_RUN'				=> 'Auto Prune Notification Last Run',
+	'ACP_UNC_CRON_NEXT_RUN'				=> 'Auto Prune Notification Next Run',
+	'ACP_UNC_CRON_RUN'					=> 'Run Auto Prune All Notification(s)',
+	'ACP_UNC_CRON_RUN_NOW'				=> 'Run Now',
+	'ACP_UNC_DAYS'						=> 'Day(s)',
 ]);

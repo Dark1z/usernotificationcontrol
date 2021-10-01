@@ -45,7 +45,9 @@ $lang = array_merge($lang, [
 
 	// phpBB Log
 	'ACP_UNC_LOG_SET_SAV'	=> '<strong>User Notification Control [UNC]</strong><br>» %s saved successfully!',
+	'UNC_AUTO_PRUNE_LOG'	=> '<strong>User Notification Control [UNC]</strong><br>» Auto prune all notification(s) completed.<br>» Pruned notification(s) before “%1$s” Day(s) from “%2$s”',
 
 	// ACP Modes
 	'ACP_UNC_MAIN'	=> 'Main Settings',
+	'ACP_UNC_PRUNE'	=> 'Prune Settings',
 ]);

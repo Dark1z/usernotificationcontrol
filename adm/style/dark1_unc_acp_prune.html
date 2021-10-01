@@ -1,0 +1,66 @@
+{% include 'overall_header.html' %}
+
+{% INCLUDECSS '@dark1_usernotificationcontrol/dark1_unc_acp_style.css' %}
+
+<h1>{{ UNC_EXT_NAME }}</h1>
+<div>{{ lang('ACP_UNC_BY') }}&nbsp;{{ UNC_EXT_DEV }}</div>
+<hr class="acp-unc-hr">
+<h2>{{ UNC_EXT_MODE }}</h2>
+
+<form id="dark1_unc_acp" name="dark1_unc_acp" method="post" action="{{ U_ACTION }}">
+
+	<fieldset>
+		<legend>{{ lang('ACP_UNC_SET') }}</legend>
+		<dl>
+			<dt>
+				<label for="dark1_unc_auto_prune_notify_enable">{{ lang('ACP_UNC_CRON_ENABLE') ~ lang('COLON') }}</label>
+			</dt>
+			<dd>
+				<label><input type="radio" class="radio" name="dark1_unc_auto_prune_notify_enable" id="dark1_unc_auto_prune_notify_enable" value="1" {% if UNC_ENABLE_CRON %}checked="checked"{% endif %} /> {{ lang('YES') }}</label>
+				<label><input type="radio" class="radio" name="dark1_unc_auto_prune_notify_enable" id="dark1_unc_auto_prune_notify_enable" value="0" {% if not UNC_ENABLE_CRON %}checked="checked"{% endif %} /> {{ lang('NO') }}</label>
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label>{{ lang('ACP_UNC_CRON_INTERVAL') ~ lang('COLON') }}</label>
+			</dt>
+			<dd>
+				<input type="number" min="1" max="999" size="3" maxlength="3" step="1" name="dark1_unc_auto_prune_notify_gc" value="{{ UNC_CRON_INTERVAL }}" style="width: 50px;" /> {{ lang('ACP_UNC_DAYS') }}
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label>{{ lang('ACP_UNC_CRON_LAST_RUN') ~ lang('COLON') }}</label>
+			</dt>
+			<dd>
+				<input type="text" value="{{ UNC_CRON_LAST_RUN }}" size="45" maxlength="80" disabled />
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label>{{ lang('ACP_UNC_CRON_NEXT_RUN') ~ lang('COLON') }}</label>
+			</dt>
+			<dd>
+				<input type="text" value="{{ UNC_CRON_NEXT_RUN }}" size="45" maxlength="80" disabled />
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label>{{ lang('ACP_UNC_CRON_RUN') ~ lang('COLON') }}</label>
+				<br><span class="responsive-hide">&nbsp;</span>
+			</dt>
+			<dd>
+				<input class="button1" type="submit" name="runcrontask" value="{{ lang('ACP_UNC_CRON_RUN_NOW') }}" />
+			</dd>
+		</dl>
+	</fieldset>
+
+	<fieldset class="submit-buttons">
+		<input class="button1" type="submit" id="submit" name="submit" value="{{ lang('SUBMIT') }}" />&nbsp;
+		<input class="button2" type="reset" id="reset" name="reset" value="{{ lang('RESET') }}" />
+		{{ S_FORM_TOKEN }}
+	</fieldset>
+
+</form>
+
+{% include 'overall_footer.html' %}
