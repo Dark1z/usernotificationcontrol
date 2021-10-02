@@ -1,6 +1,7 @@
 {% include 'overall_header.html' %}
 
 {% INCLUDECSS '@dark1_usernotificationcontrol/dark1_unc_acp_style.css' %}
+{% INCLUDEJS '@dark1_usernotificationcontrol/dark1_unc_acp_script.js' %}
 
 <h1>{{ UNC_EXT_NAME }}</h1>
 <div>{{ lang('ACP_UNC_BY') }}&nbsp;{{ UNC_EXT_DEV }}</div>
@@ -18,19 +19,30 @@
 				<div>{{ lang('ACP_UNC_READ_NOTIFICATION_NOTICE') ~ lang('COLON') }} <a href="{{ UNC_READ_EXPIRE_LINK }}">{{ lang('ACP_LOAD_SETTINGS') }}</a></div>
 			</dt>
 			<dd>
-				<input type="number" value="{{ UNC_READ_EXPIRE }}" disabled readonly /> {{ lang('ACP_UNC_DAYS') }}
+				<input type="number" id="unc_read_expire" value="{{ UNC_READ_EXPIRE }}" disabled readonly /> {{ lang('ACP_UNC_DAYS') }}
 			</dd>
 		</dl>
 		<dl>
 			<dt>
 				<label>{{ lang('ACP_UNC_ALL_NOTIFY_EXPIRE') ~ lang('COLON') }}</label>
 				<br>
-				<div>{{ lang('ACP_UNC_ALL_NOTIFY_EXPIRE_EXPLAIN', lang('READ_NOTIFICATION_EXPIRE_DAYS'), lang('ACP_UNC_ALL_NOTIFY_EXPIRE')) }}</div>
+				<div>{{ lang('ACP_UNC_ALL_NOTIFY_EXPIRE_EXPLAIN', lang('READ_NOTIFICATION_EXPIRE_DAYS')) }}</div>
 			</dt>
 			<dd>
 				<input type="number" min="1" max="9999" size="3" maxlength="4" step="1" name="dark1_unc_all_notify_expire_days" value="{{ UNC_ALL_EXPIRE }}" style="width: 50px;" /> {{ lang('ACP_UNC_DAYS') }}
 			</dd>
 		</dl>
+		<dl>
+			<dt>
+				<label>{{ lang('ACP_UNC_TOTAL_DAYS') ~ lang('COLON') }}</label>
+				<br>
+				<div>{{ lang('ACP_UNC_TOTAL_DAYS_EXPLAIN', lang('READ_NOTIFICATION_EXPIRE_DAYS'), lang('ACP_UNC_ALL_NOTIFY_EXPIRE')) }}</div>
+			</dt>
+			<dd>
+				<input type="number" id="unc_total_expire" value="{{ UNC_TOTAL_EXPIRE }}" disabled readonly /> {{ lang('ACP_UNC_DAYS') }}
+			</dd>
+		</dl>
+		<h4>{{ lang('ACP_UNC_STAT_TAB') ~ lang('COLON') }}</h4>
 		<table class="table1 responsive">
 			<thead>
 				<tr>
