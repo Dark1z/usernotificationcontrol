@@ -41,6 +41,9 @@ services:
             - '@config'
             - '@cron.manager'
             - '@dbal.conn'
+            - '%core.root_path%'
+            - '%core.adm_relative_path%'
+            - '%core.php_ext%'
 
     dark1.usernotificationcontrol.listener:
         class: dark1\usernotificationcontrol\event\main_listener

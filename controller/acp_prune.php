@@ -27,6 +27,9 @@ use phpbb\db\driver\driver_interface as db_driver;
  */
 class acp_prune extends acp_base
 {
+	/** @var language */
+	protected $language;
+
 	/** @var config */
 	protected $config;
 
@@ -36,28 +39,44 @@ class acp_prune extends acp_base
 	/** @var db_driver */
 	protected $db;
 
+	/** @var string phpBB root path */
+	protected $phpbb_root_path;
+
+	/** @var string phpBB adm relative path */
+	protected $phpbb_adm_relative_path;
+
+	/** @var string phpBB php ext */
+	protected $php_ext;
+
 	/** Time Format */
 	const TIME_FORMAT	= 'Y-m-d h:i:s A P';
 
 	/**
 	 * Constructor.
 	 *
-	 * @param language			$language		Language object
-	 * @param log				$log			Log object
-	 * @param request			$request		Request object
-	 * @param template			$template		Template object
-	 * @param user				$user			User object
-	 * @param config			$config			Config object
-	 * @param cron_manager		$cron_manager	Cron manager
-	 * @param db_driver			$db				Database object
+	 * @param language			$language					Language object
+	 * @param log				$log						Log object
+	 * @param request			$request					Request object
+	 * @param template			$template					Template object
+	 * @param user				$user						User object
+	 * @param config			$config						Config object
+	 * @param cron_manager		$cron_manager				Cron manager
+	 * @param db_driver			$db							Database object
+	 * @param string			$phpbb_root_path			phpBB root path
+	 * @param string			$phpbb_adm_relative_path	phpBB adm relative path
+	 * @param string			$php_ext					phpBB php ext
 	 */
-	public function __construct(language $language, log $log, request $request, template $template, user $user, config $config, cron_manager $cron_manager, db_driver $db)
+	public function __construct(language $language, log $log, request $request, template $template, user $user, config $config, cron_manager $cron_manager, db_driver $db, $phpbb_root_path, $phpbb_adm_relative_path, $php_ext)
 	{
 		parent::__construct($language, $log, $request, $template, $user);
 
-		$this->config			= $config;
-		$this->cron_manager		= $cron_manager;
-		$this->db				= $db;
+		$this->language					= $language;
+		$this->config					= $config;
+		$this->cron_manager				= $cron_manager;
+		$this->db						= $db;
+		$this->phpbb_root_path			= $phpbb_root_path;
+		$this->phpbb_adm_relative_path	= $phpbb_adm_relative_path;
+		$this->php_ext					= $php_ext;
 	}
 
 	/**
@@ -92,9 +111,34 @@ class acp_prune extends acp_base
 			$this->success_form_on_submit();
 		}
 
+		$this->language->add_lang('acp/board');
+		$main_adm_path = $this->phpbb_root_path . $this->phpbb_adm_relative_path . 'index.' . $this->php_ext;
+		$read_expire_link = append_sid($main_adm_path, 'i=acp_board&amp;mode=load').'#read_notification_expire_days';
+
+		$days = $this->config['read_notification_expire_days'] + $this->config['dark1_unc_all_notify_expire_days'];
+		$timestamp = time() - ($days * 86400);
+		foreach (['all' => '> 0', 'exp' => '< '.$timestamp, 'rem' => '>= '.$timestamp] as $key => $value)
+		{
+			$sql = 'SELECT `notification_read`, COUNT(*) AS `count`' .
+					' FROM ' . NOTIFICATIONS_TABLE .
+					' WHERE `notification_time` ' . (string) $value .
+					' GROUP BY `notification_read`' .
+					' ORDER BY `notification_read` ASC';
+			$result = $this->db->sql_query($sql);
+			$rows = $this->db->sql_fetchrowset($result);
+			$this->db->sql_freeresult($result);
+
+			$this->template->assign_block_vars('stats', [
+				'TYPE'		=> $this->language->lang('ACP_UNC_STAT_' . strtoupper($key)),
+				'UNREAD'	=> (int) $rows[0]['count'],
+				'READ'		=> (int) $rows[1]['count'],
+			]);
+		}
+
 		// Set output variables for display in the template
 		$this->template->assign_vars([
 			'UNC_READ_EXPIRE'		=> $this->config['read_notification_expire_days'],
+			'UNC_READ_EXPIRE_LINK'	=> $read_expire_link,
 			'UNC_ALL_EXPIRE'		=> $this->config['dark1_unc_all_notify_expire_days'],
 			'UNC_ENABLE_CRON'		=> $this->config['dark1_unc_auto_prune_notify_enable'],
 			'UNC_CRON_INTERVAL'		=> ($this->config['dark1_unc_auto_prune_notify_gc'] / 86400),
