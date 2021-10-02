@@ -68,6 +68,10 @@ $lang = array_merge($lang, [
 	'ACP_UNC_NO_NOTICE_FAQ_INFO'		=> 'For further details on this, read FAQ of this Extension on “phpBB Customisation Database” OR “GitHub Wiki”.',
 
 	// Prune
+	'ACP_UNC_ALL_NOTIFY_EXPIRE'			=> 'All Notification Expiration',
+	'ACP_UNC_ALL_NOTIFY_EXPIRE_EXPLAIN'	=> 'Number of day(s) that will elapse before All (Read and Un-Read) notification(s) will be deleted.<br>This will delete after “<b>%1$s</b>” + “<b>%2$s</b>”.<br>Default : 365 Days',
+	'ACP_UNC_READ_NOTIFICATION_NOTICE'	=> 'This is “<b>Read-Only</b>”, Change this setting here',
+	'ACP_UNC_CRON_SET'					=> 'Cron Task Settings',
 	'ACP_UNC_CRON_ENABLE'				=> 'Enable Auto Prune All Notification(s)',
 	'ACP_UNC_CRON_INTERVAL'				=> 'Auto Prune Notification Interval',
 	'ACP_UNC_CRON_LAST_RUN'				=> 'Auto Prune Notification Last Run',
@@ -75,4 +79,10 @@ $lang = array_merge($lang, [
 	'ACP_UNC_CRON_RUN'					=> 'Run Auto Prune All Notification(s)',
 	'ACP_UNC_CRON_RUN_NOW'				=> 'Run Now',
 	'ACP_UNC_DAYS'						=> 'Day(s)',
+	'ACP_UNC_STAT_NOTIFICATION'			=> 'Notification(s)',
+	'ACP_UNC_STAT_UNREAD'				=> 'Un-Read',
+	'ACP_UNC_STAT_READ'					=> 'Read',
+	'ACP_UNC_STAT_ALL'					=> 'Current Total',
+	'ACP_UNC_STAT_EXP'					=> 'Will Expire',
+	'ACP_UNC_STAT_REM'					=> 'Will Remain',
 ]);

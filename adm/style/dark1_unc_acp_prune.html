@@ -13,6 +13,48 @@
 		<legend>{{ lang('ACP_UNC_SET') }}</legend>
 		<dl>
 			<dt>
+				<label>{{ lang('READ_NOTIFICATION_EXPIRE_DAYS') ~ lang('COLON') }}</label>
+				<br>
+				<div>{{ lang('ACP_UNC_READ_NOTIFICATION_NOTICE') ~ lang('COLON') }} <a href="{{ UNC_READ_EXPIRE_LINK }}">{{ lang('ACP_LOAD_SETTINGS') }}</a></div>
+			</dt>
+			<dd>
+				<input type="number" value="{{ UNC_READ_EXPIRE }}" disabled readonly /> {{ lang('ACP_UNC_DAYS') }}
+			</dd>
+		</dl>
+		<dl>
+			<dt>
+				<label>{{ lang('ACP_UNC_ALL_NOTIFY_EXPIRE') ~ lang('COLON') }}</label>
+				<br>
+				<div>{{ lang('ACP_UNC_ALL_NOTIFY_EXPIRE_EXPLAIN', lang('READ_NOTIFICATION_EXPIRE_DAYS'), lang('ACP_UNC_ALL_NOTIFY_EXPIRE')) }}</div>
+			</dt>
+			<dd>
+				<input type="number" min="1" max="9999" size="3" maxlength="4" step="1" name="dark1_unc_all_notify_expire_days" value="{{ UNC_ALL_EXPIRE }}" style="width: 50px;" /> {{ lang('ACP_UNC_DAYS') }}
+			</dd>
+		</dl>
+		<table class="table1 responsive">
+			<thead>
+				<tr>
+					<th>{{ lang('ACP_UNC_STAT_NOTIFICATION') }}</th>
+					<th>{{ lang('ACP_UNC_STAT_UNREAD') }}</th>
+					<th>{{ lang('ACP_UNC_STAT_READ') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for stat in loops.stats %}
+				<tr>
+					<td class="col1"><b>{{ stat.TYPE }}</b></td>
+					<td class="col1">{{ stat.UNREAD }}</td>
+					<td class="col1">{{ stat.READ }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('ACP_UNC_CRON_SET') }}</legend>
+		<dl>
+			<dt>
 				<label for="dark1_unc_auto_prune_notify_enable">{{ lang('ACP_UNC_CRON_ENABLE') ~ lang('COLON') }}</label>
 			</dt>
 			<dd>

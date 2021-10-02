@@ -29,7 +29,7 @@ class unc_003 extends migration
 	{
 		return [
 			// Add Config
-			['config.add', ['dark1_unc_all_notify_expire_days', 31536000, true]],
+			['config.add', ['dark1_unc_all_notify_expire_days', 365, true]],
 			['config.add', ['dark1_unc_auto_prune_notify_enable', 0, true]],
 			['config.add', ['dark1_unc_auto_prune_notify_gc', 864000, true]],
 			['config.add', ['dark1_unc_auto_prune_notify_last_gc', 0, true]],
