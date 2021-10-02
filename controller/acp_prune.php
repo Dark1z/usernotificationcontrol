@@ -140,6 +140,7 @@ class acp_prune extends acp_base
 			'UNC_READ_EXPIRE'		=> $this->config['read_notification_expire_days'],
 			'UNC_READ_EXPIRE_LINK'	=> $read_expire_link,
 			'UNC_ALL_EXPIRE'		=> $this->config['dark1_unc_all_notify_expire_days'],
+			'UNC_TOTAL_EXPIRE'		=> $days,
 			'UNC_ENABLE_CRON'		=> $this->config['dark1_unc_auto_prune_notify_enable'],
 			'UNC_CRON_INTERVAL'		=> ($this->config['dark1_unc_auto_prune_notify_gc'] / 86400),
 			'UNC_CRON_LAST_RUN'		=> $this->user->format_date($this->config['dark1_unc_auto_prune_notify_last_gc'], self::TIME_FORMAT, true),

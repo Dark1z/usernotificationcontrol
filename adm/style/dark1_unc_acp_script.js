@@ -10,3 +10,7 @@
 $('#toggleuncdebug').click(function() {
 	$('span[data-uncdebug]').toggleClass('show');
 });
+
+$('input[name="dark1_unc_all_notify_expire_days"]').change(function() {
+	$('#unc_total_expire').val(parseInt($('#unc_read_expire').val()) + parseInt($(this).val()));
+});
