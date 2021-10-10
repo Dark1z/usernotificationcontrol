@@ -47,16 +47,16 @@
 			<thead>
 				<tr>
 					<th>{{ lang('ACP_UNC_STAT_NOTIFICATION') }}</th>
-					<th>{{ lang('ACP_UNC_STAT_UNREAD') }}</th>
-					<th>{{ lang('ACP_UNC_STAT_READ') }}</th>
+					<th class="unc-numrt">{{ lang('ACP_UNC_STAT_UNREAD') }}</th>
+					<th class="unc-numrt">{{ lang('ACP_UNC_STAT_READ') }}</th>
 				</tr>
 			</thead>
 			<tbody>
 			{% for stat in loops.stats %}
 				<tr>
 					<td class="col1"><b>{{ stat.TYPE }}</b></td>
-					<td class="col1">{{ stat.UNREAD }}</td>
-					<td class="col1">{{ stat.READ }}</td>
+					<td class="col1 unc-numrt">{{ stat.UNREAD }}</td>
+					<td class="col1 unc-numrt">{{ stat.READ }}</td>
 				</tr>
 			{% endfor %}
 			</tbody>

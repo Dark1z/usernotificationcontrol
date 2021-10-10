@@ -15,13 +15,18 @@
 }
 
 /* Notification Group */
-td.row3 > b {
+td.row3 > b.unc-gname {
 	font-size: 100% !important;
 }
 
 /* Notification Group Type */
-td.col1 > b {
+td.col1 > b.unc-gtcap {
 	text-transform: capitalize !important;
+}
+
+/* Notification Stat Count */
+tr > .unc-numrt {
+	text-align: right !important;
 }
 
 /* DeBug Display Hide */

@@ -52,12 +52,12 @@
 			{% for notification_types in loops.notification_types %}
 				{% if notification_types.GROUP_NAME %}
 					<tr>
-						<td class="row3" colspan="{{ NOTIFICATION_TYPES_COLS }}"><b>{{ notification_types.GROUP_NAME }}</b></td>
+						<td class="row3" colspan="{{ NOTIFICATION_TYPES_COLS }}"><b class="unc-gname">{{ notification_types.GROUP_NAME }}</b></td>
 					</tr>
 				{% else %}
 					<tr>
 						<td class="col1">
-							<b>{{ notification_types.TEXT }}</b><br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_NAME') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.NAME }}
+							<b class="unc-gtcap">{{ notification_types.TEXT }}</b><br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_NAME') ~ ' ' ~ lang('COLON') ~ ' ' ~ notification_types.NAME }}
 							<span data-uncdebug class="hide">
 								<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_TYPE_ID') ~ ' ' ~ lang('COLON') }}&nbsp;<code>{{ notification_types.TYPE }}</code>
 								<br />&nbsp;»&nbsp;{{ lang('ACP_UNC_NOTIFY_LANG_KEY') ~ ' ' ~ lang('COLON') }}&nbsp;<code>{{ notification_types.LANG_KEY }}</code>
