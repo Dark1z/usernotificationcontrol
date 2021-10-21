@@ -42,25 +42,6 @@
 				<input type="number" id="unc_total_expire" value="{{ UNC_TOTAL_EXPIRE }}" disabled readonly /> {{ lang('ACP_UNC_DAYS') }}
 			</dd>
 		</dl>
-		<h4>{{ lang('ACP_UNC_STAT_TAB') ~ lang('COLON') }}</h4>
-		<table class="table1 responsive">
-			<thead>
-				<tr>
-					<th>{{ lang('ACP_UNC_STAT_NOTIFICATION') }}</th>
-					<th class="unc-numrt">{{ lang('ACP_UNC_STAT_UNREAD') }}</th>
-					<th class="unc-numrt">{{ lang('ACP_UNC_STAT_READ') }}</th>
-				</tr>
-			</thead>
-			<tbody>
-			{% for stat in loops.stats %}
-				<tr>
-					<td class="col1"><b>{{ stat.TYPE }}</b></td>
-					<td class="col1 unc-numrt">{{ stat.UNREAD }}</td>
-					<td class="col1 unc-numrt">{{ stat.READ }}</td>
-				</tr>
-			{% endfor %}
-			</tbody>
-		</table>
 	</fieldset>
 
 	<fieldset>
@@ -107,6 +88,29 @@
 				<input class="button1" type="submit" name="runcrontask" value="{{ lang('ACP_UNC_CRON_RUN_NOW') }}" />
 			</dd>
 		</dl>
+	</fieldset>
+
+	<fieldset>
+		<legend>{{ lang('ACP_UNC_STAT_TAB') }}</legend>
+		<p>{{ lang('ACP_UNC_STAT_NOTICE', UNC_CURRENT_TIME) }}</p>
+		<table class="table1 responsive">
+			<thead>
+				<tr>
+					<th>{{ lang('ACP_UNC_STAT_NOTIFICATION') }}</th>
+					<th class="unc-numrt">{{ lang('ACP_UNC_STAT_UNREAD') }}</th>
+					<th class="unc-numrt">{{ lang('ACP_UNC_STAT_READ') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for stat in loops.stats %}
+				<tr>
+					<td class="col1"><b>{{ stat.TYPE }}</b></td>
+					<td class="col1 unc-numrt">{{ stat.UNREAD }}</td>
+					<td class="col1 unc-numrt">{{ stat.READ }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
 	</fieldset>
 
 	<fieldset class="submit-buttons">

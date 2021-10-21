@@ -115,8 +115,9 @@ class acp_prune extends acp_base
 		$main_adm_path = $this->phpbb_root_path . $this->phpbb_adm_relative_path . 'index.' . $this->php_ext;
 		$read_expire_link = append_sid($main_adm_path, 'i=acp_board&amp;mode=load').'#read_notification_expire_days';
 
+		$curr_time = time();
 		$days = $this->config['read_notification_expire_days'] + $this->config['dark1_unc_all_notify_expire_days'];
-		$timestamp = time() - ($days * 86400);
+		$timestamp = $curr_time - ($days * 86400);
 		foreach (['all' => '> 0', 'exp' => '< '.$timestamp, 'rem' => '>= '.$timestamp] as $key => $value)
 		{
 			$sql = 'SELECT `notification_read`, COUNT(*) AS `count`' .
@@ -141,6 +142,7 @@ class acp_prune extends acp_base
 			'UNC_READ_EXPIRE_LINK'	=> $read_expire_link,
 			'UNC_ALL_EXPIRE'		=> $this->config['dark1_unc_all_notify_expire_days'],
 			'UNC_TOTAL_EXPIRE'		=> $days,
+			'UNC_CURRENT_TIME'		=> $this->user->format_date($curr_time, self::TIME_FORMAT, true),
 			'UNC_ENABLE_CRON'		=> $this->config['dark1_unc_auto_prune_notify_enable'],
 			'UNC_CRON_INTERVAL'		=> ($this->config['dark1_unc_auto_prune_notify_gc'] / 86400),
 			'UNC_CRON_LAST_RUN'		=> $this->user->format_date($this->config['dark1_unc_auto_prune_notify_last_gc'], self::TIME_FORMAT, true),
