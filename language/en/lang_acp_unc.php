@@ -88,4 +88,5 @@ $lang = array_merge($lang, [
 	'ACP_UNC_STAT_ALL'					=> 'Current Total',
 	'ACP_UNC_STAT_EXP'					=> 'Will Expire',
 	'ACP_UNC_STAT_REM'					=> 'Will Remain',
+	'ACP_UNC_STAT_NOTICE'				=> 'The statistic are with respect to “<b>%1$s</b>” (current time).',
 ]);
