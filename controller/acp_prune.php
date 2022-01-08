@@ -123,16 +123,15 @@ class acp_prune extends acp_base
 			$sql = 'SELECT `notification_read`, COUNT(*) AS `count`' .
 					' FROM ' . NOTIFICATIONS_TABLE .
 					' WHERE `notification_time` ' . (string) $value .
-					' GROUP BY `notification_read`' .
-					' ORDER BY `notification_read` ASC';
+					' GROUP BY `notification_read`';
 			$result = $this->db->sql_query($sql);
-			$rows = $this->db->sql_fetchrowset($result);
+			$rows = array_column($this->db->sql_fetchrowset($result), 'count', 'notification_read');
 			$this->db->sql_freeresult($result);
 
 			$this->template->assign_block_vars('stats', [
 				'TYPE'		=> $this->language->lang('ACP_UNC_STAT_' . strtoupper($key)),
-				'UNREAD'	=> (int) $rows[0]['count'],
-				'READ'		=> (int) $rows[1]['count'],
+				'UNREAD'	=> (int) isset($rows[0]) ? $rows[0] : 0,
+				'READ'		=> (int) isset($rows[1]) ? $rows[1] : 0,
 			]);
 		}
 
