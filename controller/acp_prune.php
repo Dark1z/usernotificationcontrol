@@ -117,7 +117,31 @@ class acp_prune extends acp_base
 
 		$curr_time = time();
 		$days = $this->config['read_notification_expire_days'] + $this->config['dark1_unc_all_notify_expire_days'];
-		$timestamp = $curr_time - ($days * 86400);
+		$this->disp_stats_tbl($curr_time - ($days * 86400));
+
+		// Set output variables for display in the template
+		$this->template->assign_vars([
+			'UNC_READ_EXPIRE'		=> $this->config['read_notification_expire_days'],
+			'UNC_READ_EXPIRE_LINK'	=> $read_expire_link,
+			'UNC_ALL_EXPIRE'		=> $this->config['dark1_unc_all_notify_expire_days'],
+			'UNC_TOTAL_EXPIRE'		=> $days,
+			'UNC_CURRENT_TIME'		=> $this->user->format_date($curr_time, self::TIME_FORMAT, true),
+			'UNC_ENABLE_CRON'		=> $this->config['dark1_unc_auto_prune_notify_enable'],
+			'UNC_CRON_INTERVAL'		=> ($this->config['dark1_unc_auto_prune_notify_gc'] / 86400),
+			'UNC_CRON_LAST_RUN'		=> $this->user->format_date($this->config['dark1_unc_auto_prune_notify_last_gc'], self::TIME_FORMAT, true),
+			'UNC_CRON_NEXT_RUN'		=> $this->user->format_date($this->config['dark1_unc_auto_prune_notify_last_gc'] + $this->config['dark1_unc_auto_prune_notify_gc'], self::TIME_FORMAT, true),
+		]);
+	}
+
+	/**
+	 * Display the Stats Table.
+	 *
+	 * @param int	$timestamp	Timestamp
+	 * @return void
+	 * @access private
+	 */
+	private function disp_stats_tbl($timestamp)
+	{
 		foreach (['all' => '> 0', 'exp' => '< '.$timestamp, 'rem' => '>= '.$timestamp] as $key => $value)
 		{
 			$sql = 'SELECT `notification_read`, COUNT(*) AS `count`' .
@@ -134,18 +158,5 @@ class acp_prune extends acp_base
 				'READ'		=> (int) isset($rows[1]) ? $rows[1] : 0,
 			]);
 		}
-
-		// Set output variables for display in the template
-		$this->template->assign_vars([
-			'UNC_READ_EXPIRE'		=> $this->config['read_notification_expire_days'],
-			'UNC_READ_EXPIRE_LINK'	=> $read_expire_link,
-			'UNC_ALL_EXPIRE'		=> $this->config['dark1_unc_all_notify_expire_days'],
-			'UNC_TOTAL_EXPIRE'		=> $days,
-			'UNC_CURRENT_TIME'		=> $this->user->format_date($curr_time, self::TIME_FORMAT, true),
-			'UNC_ENABLE_CRON'		=> $this->config['dark1_unc_auto_prune_notify_enable'],
-			'UNC_CRON_INTERVAL'		=> ($this->config['dark1_unc_auto_prune_notify_gc'] / 86400),
-			'UNC_CRON_LAST_RUN'		=> $this->user->format_date($this->config['dark1_unc_auto_prune_notify_last_gc'], self::TIME_FORMAT, true),
-			'UNC_CRON_NEXT_RUN'		=> $this->user->format_date($this->config['dark1_unc_auto_prune_notify_last_gc'] + $this->config['dark1_unc_auto_prune_notify_gc'], self::TIME_FORMAT, true),
-		]);
 	}
 }
