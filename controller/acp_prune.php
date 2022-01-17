@@ -3,7 +3,7 @@
  *
  * User Notification Control [UNC]. An extension for the phpBB Forum Software package.
  *
- * @copyright (c) 2020-2021, Dark❶, https://dark1.tech
+ * @copyright (c) 2020-forever, Dark❶, https://dark1.tech
  * @license GNU General Public License, version 2 (GPL-2.0)
  *
  */
@@ -144,10 +144,10 @@ class acp_prune extends acp_base
 	{
 		foreach (['all' => '> 0', 'exp' => '< '.$timestamp, 'rem' => '>= '.$timestamp] as $key => $value)
 		{
-			$sql = 'SELECT `notification_read`, COUNT(*) AS `count`' .
+			$sql = 'SELECT notification_read, COUNT(*) AS count' .
 					' FROM ' . NOTIFICATIONS_TABLE .
-					' WHERE `notification_time` ' . (string) $value .
-					' GROUP BY `notification_read`';
+					' WHERE notification_time ' . (string) $value .
+					' GROUP BY notification_read';
 			$result = $this->db->sql_query($sql);
 			$rows = array_column($this->db->sql_fetchrowset($result), 'count', 'notification_read');
 			$this->db->sql_freeresult($result);
