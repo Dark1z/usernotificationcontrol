@@ -154,8 +154,8 @@ class acp_prune extends acp_base
 
 			$this->template->assign_block_vars('stats', [
 				'TYPE'		=> $this->language->lang('ACP_UNC_STAT_' . strtoupper($key)),
-				'UNREAD'	=> (int) isset($rows[0]) ? $rows[0] : 0,
-				'READ'		=> (int) isset($rows[1]) ? $rows[1] : 0,
+				'UNREAD'	=> (int) (isset($rows[0]) ? $rows[0] : 0),
+				'READ'		=> (int) (isset($rows[1]) ? $rows[1] : 0),
 			]);
 		}
 	}
