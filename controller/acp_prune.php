@@ -108,7 +108,7 @@ class acp_prune extends acp_base
 			$cron_task = $this->cron_manager->find_task('dark1.usernotificationcontrol.cron.auto_prune_notify');
 			$cron_task->run();
 
-			$this->success_form_on_submit();
+			$this->success_form_on_submit('ACP_UNC_LOG_CRON', '');
 		}
 
 		$this->language->add_lang('acp/board');
