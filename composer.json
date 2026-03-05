@@ -16,8 +16,8 @@
 	"authors": [
 		{
 			"name": "Dark❶",
-			"email": "phpbb@dark1.tech",
-			"homepage": "https://dark1.tech",
+			"email": "dark1z@yahoo.com",
+			"homepage": "https://dark1.rf.gd/",
 			"role": "Lead Developer"
 		}
 	],
@@ -38,12 +38,12 @@
 	},
 	"readme": "./README.md",
 	"support": {
-		"email": "phpbb@dark1.tech",
+		"email": "dark1z@yahoo.com",
 		"issues": "https://github.com/Dark1z/usernotificationcontrol/issues",
 		"forum": "https://phpbb.com/customise/db/extension/user_notification_control/support",
 		"wiki": "https://github.com/Dark1z/usernotificationcontrol/wiki",
 		"source": "https://github.com/Dark1z/usernotificationcontrol",
-		"docs": "https://github.dark1.tech/usernotificationcontrol",
+		"docs": "https://dark1z.github.io/usernotificationcontrol",
 		"chat": "https://github.com/Dark1z/usernotificationcontrol/discussions"
 	}
 }
